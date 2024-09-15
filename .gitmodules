@@ -1,0 +1,9 @@
+[submodule "contracts/citrus-safe-modules"]
+	path = contracts/citrus-safe-modules
+	url = git@github.com:citrus-finance/citrus-safe-modules.git
+[submodule "contracts/joe-v2"]
+	path = contracts/joe-v2
+	url = git@github.com:traderjoe-xyz/joe-v2.git
+[submodule "contracts/joe-core"]
+	path = contracts/joe-core
+	url = git@github.com:citrus-finance/joe-core.git
