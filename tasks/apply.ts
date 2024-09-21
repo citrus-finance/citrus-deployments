@@ -20,7 +20,7 @@ import {
   getCreateAddress,
 } from "viem";
 import pRetry from "p-retry";
-import { mapValues } from "lodash";
+import { mapValues, omit } from "lodash";
 
 const create2Contract = "0x914d7fec6aac8cd542e72bca78b30650d45643d7";
 const wNative = "0xe91d153e0b41518a2ce8dd3d7944fa863463a97d";
@@ -271,7 +271,13 @@ class CitrusDeployer {
 
     console.log(
       `Sourcify verification result for ${contractName}`,
-      await sourcifyResponse.json(),
+      sourcifyResponse.status === 200
+        ? {
+            result: (await sourcifyResponse.json()).result.map((x: any) =>
+              omit(x, ["onchainRuntimeBytecode", "onchainCreationBytecode"]),
+            ),
+          }
+        : await sourcifyResponse.json(),
     );
 
     if (this.etherscanKey) {

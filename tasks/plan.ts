@@ -425,6 +425,8 @@ async function planDynamicDeployment<C extends keyof ArtifactsMap>(
   }
 
   calls[callIndex++] = call;
+
+  await writeContractFile(hre, contractName);
 }
 
 async function planCall<
