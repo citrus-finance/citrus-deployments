@@ -1,0 +1,2269 @@
+{
+  "compiler": {
+    "version": "0.8.20+commit.a1b79de6"
+  },
+  "language": "Solidity",
+  "output": {
+    "abi": [
+      {
+        "inputs": [
+          {
+            "internalType": "contract ILBFactory",
+            "name": "factory_",
+            "type": "address"
+          }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint24",
+            "name": "id",
+            "type": "uint24"
+          }
+        ],
+        "name": "BinHelper__CompositionFactorFlawed",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "BinHelper__LiquidityOverflow",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "BinHelper__MaxLiquidityPerBinExceeded",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "FeeHelper__FeeTooLarge",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "Hooks__CallFailed",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "InvalidInitialization",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "LBPair__AddressZero",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "LBPair__EmptyMarketConfigs",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "LBPair__FlashLoanCallbackFailed",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "LBPair__FlashLoanInsufficientAmount",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "LBPair__InsufficientAmountIn",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "LBPair__InsufficientAmountOut",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "LBPair__InvalidHooks",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "LBPair__InvalidInput",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "LBPair__InvalidStaticFeeParameters",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "LBPair__MaxTotalFeeExceeded",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "LBPair__OnlyFactory",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "LBPair__OnlyProtocolFeeRecipient",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "LBPair__OutOfLiquidity",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "LBPair__TokenNotSupported",
+        "type": "error"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint24",
+            "name": "id",
+            "type": "uint24"
+          }
+        ],
+        "name": "LBPair__ZeroAmount",
+        "type": "error"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint24",
+            "name": "id",
+            "type": "uint24"
+          }
+        ],
+        "name": "LBPair__ZeroAmountsOut",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "LBPair__ZeroBorrowAmount",
+        "type": "error"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint24",
+            "name": "id",
+            "type": "uint24"
+          }
+        ],
+        "name": "LBPair__ZeroShares",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "LBToken__AddressThisOrZero",
+        "type": "error"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "from",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "id",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "amount",
+            "type": "uint256"
+          }
+        ],
+        "name": "LBToken__BurnExceedsBalance",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "LBToken__InvalidLength",
+        "type": "error"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "owner",
+            "type": "address"
+          }
+        ],
+        "name": "LBToken__SelfApproval",
+        "type": "error"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "from",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "spender",
+            "type": "address"
+          }
+        ],
+        "name": "LBToken__SpenderNotApproved",
+        "type": "error"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "from",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "id",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "amount",
+            "type": "uint256"
+          }
+        ],
+        "name": "LBToken__TransferExceedsBalance",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "LiquidityConfigurations__InvalidConfig",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "NotInitializing",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "OracleHelper__InvalidOracleId",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "OracleHelper__LookUpTimestampTooOld",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "OracleHelper__NewLengthTooSmall",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "PackedUint128Math__AddOverflow",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "PackedUint128Math__MultiplierTooLarge",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "PackedUint128Math__SubUnderflow",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "PairParametersHelper__InvalidParameter",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "ReentrancyGuardReentrantCall",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "SafeCast__Exceeds128Bits",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "SafeCast__Exceeds24Bits",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "SafeCast__Exceeds40Bits",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "TokenHelper__TransferFailed",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "Uint128x128Math__LogUnderflow",
+        "type": "error"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "x",
+            "type": "uint256"
+          },
+          {
+            "internalType": "int256",
+            "name": "y",
+            "type": "int256"
+          }
+        ],
+        "name": "Uint128x128Math__PowUnderflow",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "Uint256x256Math__MulDivOverflow",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "Uint256x256Math__MulShiftOverflow",
+        "type": "error"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "account",
+            "type": "address"
+          },
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "sender",
+            "type": "address"
+          },
+          {
+            "indexed": false,
+            "internalType": "bool",
+            "name": "approved",
+            "type": "bool"
+          }
+        ],
+        "name": "ApprovalForAll",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "feeRecipient",
+            "type": "address"
+          },
+          {
+            "indexed": false,
+            "internalType": "bytes32",
+            "name": "protocolFees",
+            "type": "bytes32"
+          }
+        ],
+        "name": "CollectedProtocolFees",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "sender",
+            "type": "address"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint24",
+            "name": "id",
+            "type": "uint24"
+          },
+          {
+            "indexed": false,
+            "internalType": "bytes32",
+            "name": "totalFees",
+            "type": "bytes32"
+          },
+          {
+            "indexed": false,
+            "internalType": "bytes32",
+            "name": "protocolFees",
+            "type": "bytes32"
+          }
+        ],
+        "name": "CompositionFees",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "sender",
+            "type": "address"
+          },
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "to",
+            "type": "address"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256[]",
+            "name": "ids",
+            "type": "uint256[]"
+          },
+          {
+            "indexed": false,
+            "internalType": "bytes32[]",
+            "name": "amounts",
+            "type": "bytes32[]"
+          }
+        ],
+        "name": "DepositedToBins",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "sender",
+            "type": "address"
+          },
+          {
+            "indexed": true,
+            "internalType": "contract ILBFlashLoanCallback",
+            "name": "receiver",
+            "type": "address"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint24",
+            "name": "activeId",
+            "type": "uint24"
+          },
+          {
+            "indexed": false,
+            "internalType": "bytes32",
+            "name": "amounts",
+            "type": "bytes32"
+          },
+          {
+            "indexed": false,
+            "internalType": "bytes32",
+            "name": "totalFees",
+            "type": "bytes32"
+          },
+          {
+            "indexed": false,
+            "internalType": "bytes32",
+            "name": "protocolFees",
+            "type": "bytes32"
+          }
+        ],
+        "name": "FlashLoan",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "sender",
+            "type": "address"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint24",
+            "name": "idReference",
+            "type": "uint24"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint24",
+            "name": "volatilityReference",
+            "type": "uint24"
+          }
+        ],
+        "name": "ForcedDecay",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "sender",
+            "type": "address"
+          },
+          {
+            "indexed": false,
+            "internalType": "bytes32",
+            "name": "hooksParameters",
+            "type": "bytes32"
+          }
+        ],
+        "name": "HooksParametersSet",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": false,
+            "internalType": "uint64",
+            "name": "version",
+            "type": "uint64"
+          }
+        ],
+        "name": "Initialized",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "sender",
+            "type": "address"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint16",
+            "name": "oracleLength",
+            "type": "uint16"
+          }
+        ],
+        "name": "OracleLengthIncreased",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "sender",
+            "type": "address"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint16",
+            "name": "baseFactor",
+            "type": "uint16"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint16",
+            "name": "filterPeriod",
+            "type": "uint16"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint16",
+            "name": "decayPeriod",
+            "type": "uint16"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint16",
+            "name": "reductionFactor",
+            "type": "uint16"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint24",
+            "name": "variableFeeControl",
+            "type": "uint24"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint16",
+            "name": "protocolShare",
+            "type": "uint16"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint24",
+            "name": "maxVolatilityAccumulator",
+            "type": "uint24"
+          }
+        ],
+        "name": "StaticFeeParametersSet",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "sender",
+            "type": "address"
+          },
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "to",
+            "type": "address"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint24",
+            "name": "id",
+            "type": "uint24"
+          },
+          {
+            "indexed": false,
+            "internalType": "bytes32",
+            "name": "amountsIn",
+            "type": "bytes32"
+          },
+          {
+            "indexed": false,
+            "internalType": "bytes32",
+            "name": "amountsOut",
+            "type": "bytes32"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint24",
+            "name": "volatilityAccumulator",
+            "type": "uint24"
+          },
+          {
+            "indexed": false,
+            "internalType": "bytes32",
+            "name": "totalFees",
+            "type": "bytes32"
+          },
+          {
+            "indexed": false,
+            "internalType": "bytes32",
+            "name": "protocolFees",
+            "type": "bytes32"
+          }
+        ],
+        "name": "Swap",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "sender",
+            "type": "address"
+          },
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "from",
+            "type": "address"
+          },
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "to",
+            "type": "address"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256[]",
+            "name": "ids",
+            "type": "uint256[]"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256[]",
+            "name": "amounts",
+            "type": "uint256[]"
+          }
+        ],
+        "name": "TransferBatch",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "sender",
+            "type": "address"
+          },
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "to",
+            "type": "address"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256[]",
+            "name": "ids",
+            "type": "uint256[]"
+          },
+          {
+            "indexed": false,
+            "internalType": "bytes32[]",
+            "name": "amounts",
+            "type": "bytes32[]"
+          }
+        ],
+        "name": "WithdrawnFromBins",
+        "type": "event"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "spender",
+            "type": "address"
+          },
+          {
+            "internalType": "bool",
+            "name": "approved",
+            "type": "bool"
+          }
+        ],
+        "name": "approveForAll",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "account",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "id",
+            "type": "uint256"
+          }
+        ],
+        "name": "balanceOf",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address[]",
+            "name": "accounts",
+            "type": "address[]"
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "ids",
+            "type": "uint256[]"
+          }
+        ],
+        "name": "balanceOfBatch",
+        "outputs": [
+          {
+            "internalType": "uint256[]",
+            "name": "batchBalances",
+            "type": "uint256[]"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "from",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "to",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "ids",
+            "type": "uint256[]"
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "amounts",
+            "type": "uint256[]"
+          }
+        ],
+        "name": "batchTransferFrom",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "from",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "to",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "ids",
+            "type": "uint256[]"
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "amountsToBurn",
+            "type": "uint256[]"
+          }
+        ],
+        "name": "burn",
+        "outputs": [
+          {
+            "internalType": "bytes32[]",
+            "name": "amounts",
+            "type": "bytes32[]"
+          }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "collectProtocolFees",
+        "outputs": [
+          {
+            "internalType": "bytes32",
+            "name": "collectedProtocolFees",
+            "type": "bytes32"
+          }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "contract ILBFlashLoanCallback",
+            "name": "receiver",
+            "type": "address"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "amounts",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "bytes",
+            "name": "data",
+            "type": "bytes"
+          }
+        ],
+        "name": "flashLoan",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "forceDecay",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "getActiveId",
+        "outputs": [
+          {
+            "internalType": "uint24",
+            "name": "activeId",
+            "type": "uint24"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint24",
+            "name": "id",
+            "type": "uint24"
+          }
+        ],
+        "name": "getBin",
+        "outputs": [
+          {
+            "internalType": "uint128",
+            "name": "binReserveX",
+            "type": "uint128"
+          },
+          {
+            "internalType": "uint128",
+            "name": "binReserveY",
+            "type": "uint128"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "getBinStep",
+        "outputs": [
+          {
+            "internalType": "uint16",
+            "name": "",
+            "type": "uint16"
+          }
+        ],
+        "stateMutability": "pure",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "getFactory",
+        "outputs": [
+          {
+            "internalType": "contract ILBFactory",
+            "name": "factory",
+            "type": "address"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "price",
+            "type": "uint256"
+          }
+        ],
+        "name": "getIdFromPrice",
+        "outputs": [
+          {
+            "internalType": "uint24",
+            "name": "id",
+            "type": "uint24"
+          }
+        ],
+        "stateMutability": "pure",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "getLBHooksParameters",
+        "outputs": [
+          {
+            "internalType": "bytes32",
+            "name": "",
+            "type": "bytes32"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "bool",
+            "name": "swapForY",
+            "type": "bool"
+          },
+          {
+            "internalType": "uint24",
+            "name": "id",
+            "type": "uint24"
+          }
+        ],
+        "name": "getNextNonEmptyBin",
+        "outputs": [
+          {
+            "internalType": "uint24",
+            "name": "nextId",
+            "type": "uint24"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "getOracleParameters",
+        "outputs": [
+          {
+            "internalType": "uint8",
+            "name": "sampleLifetime",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint16",
+            "name": "size",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint16",
+            "name": "activeSize",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint40",
+            "name": "lastUpdated",
+            "type": "uint40"
+          },
+          {
+            "internalType": "uint40",
+            "name": "firstTimestamp",
+            "type": "uint40"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint40",
+            "name": "lookupTimestamp",
+            "type": "uint40"
+          }
+        ],
+        "name": "getOracleSampleAt",
+        "outputs": [
+          {
+            "internalType": "uint64",
+            "name": "cumulativeId",
+            "type": "uint64"
+          },
+          {
+            "internalType": "uint64",
+            "name": "cumulativeVolatility",
+            "type": "uint64"
+          },
+          {
+            "internalType": "uint64",
+            "name": "cumulativeBinCrossed",
+            "type": "uint64"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint24",
+            "name": "id",
+            "type": "uint24"
+          }
+        ],
+        "name": "getPriceFromId",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "price",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "pure",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "getProtocolFees",
+        "outputs": [
+          {
+            "internalType": "uint128",
+            "name": "protocolFeeX",
+            "type": "uint128"
+          },
+          {
+            "internalType": "uint128",
+            "name": "protocolFeeY",
+            "type": "uint128"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "getReserves",
+        "outputs": [
+          {
+            "internalType": "uint128",
+            "name": "reserveX",
+            "type": "uint128"
+          },
+          {
+            "internalType": "uint128",
+            "name": "reserveY",
+            "type": "uint128"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "getStaticFeeParameters",
+        "outputs": [
+          {
+            "internalType": "uint16",
+            "name": "baseFactor",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint16",
+            "name": "filterPeriod",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint16",
+            "name": "decayPeriod",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint16",
+            "name": "reductionFactor",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint24",
+            "name": "variableFeeControl",
+            "type": "uint24"
+          },
+          {
+            "internalType": "uint16",
+            "name": "protocolShare",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint24",
+            "name": "maxVolatilityAccumulator",
+            "type": "uint24"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint128",
+            "name": "amountOut",
+            "type": "uint128"
+          },
+          {
+            "internalType": "bool",
+            "name": "swapForY",
+            "type": "bool"
+          }
+        ],
+        "name": "getSwapIn",
+        "outputs": [
+          {
+            "internalType": "uint128",
+            "name": "amountIn",
+            "type": "uint128"
+          },
+          {
+            "internalType": "uint128",
+            "name": "amountOutLeft",
+            "type": "uint128"
+          },
+          {
+            "internalType": "uint128",
+            "name": "fee",
+            "type": "uint128"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint128",
+            "name": "amountIn",
+            "type": "uint128"
+          },
+          {
+            "internalType": "bool",
+            "name": "swapForY",
+            "type": "bool"
+          }
+        ],
+        "name": "getSwapOut",
+        "outputs": [
+          {
+            "internalType": "uint128",
+            "name": "amountInLeft",
+            "type": "uint128"
+          },
+          {
+            "internalType": "uint128",
+            "name": "amountOut",
+            "type": "uint128"
+          },
+          {
+            "internalType": "uint128",
+            "name": "fee",
+            "type": "uint128"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "getTokenX",
+        "outputs": [
+          {
+            "internalType": "contract IERC20",
+            "name": "tokenX",
+            "type": "address"
+          }
+        ],
+        "stateMutability": "pure",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "getTokenY",
+        "outputs": [
+          {
+            "internalType": "contract IERC20",
+            "name": "tokenY",
+            "type": "address"
+          }
+        ],
+        "stateMutability": "pure",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "getVariableFeeParameters",
+        "outputs": [
+          {
+            "internalType": "uint24",
+            "name": "volatilityAccumulator",
+            "type": "uint24"
+          },
+          {
+            "internalType": "uint24",
+            "name": "volatilityReference",
+            "type": "uint24"
+          },
+          {
+            "internalType": "uint24",
+            "name": "idReference",
+            "type": "uint24"
+          },
+          {
+            "internalType": "uint40",
+            "name": "timeOfLastUpdate",
+            "type": "uint40"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "implementation",
+        "outputs": [
+          {
+            "internalType": "address",
+            "name": "",
+            "type": "address"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint16",
+            "name": "newLength",
+            "type": "uint16"
+          }
+        ],
+        "name": "increaseOracleLength",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint16",
+            "name": "baseFactor",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint16",
+            "name": "filterPeriod",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint16",
+            "name": "decayPeriod",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint16",
+            "name": "reductionFactor",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint24",
+            "name": "variableFeeControl",
+            "type": "uint24"
+          },
+          {
+            "internalType": "uint16",
+            "name": "protocolShare",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint24",
+            "name": "maxVolatilityAccumulator",
+            "type": "uint24"
+          },
+          {
+            "internalType": "uint24",
+            "name": "activeId",
+            "type": "uint24"
+          }
+        ],
+        "name": "initialize",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "owner",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "spender",
+            "type": "address"
+          }
+        ],
+        "name": "isApprovedForAll",
+        "outputs": [
+          {
+            "internalType": "bool",
+            "name": "",
+            "type": "bool"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "to",
+            "type": "address"
+          },
+          {
+            "internalType": "bytes32[]",
+            "name": "liquidityConfigs",
+            "type": "bytes32[]"
+          },
+          {
+            "internalType": "address",
+            "name": "refundTo",
+            "type": "address"
+          }
+        ],
+        "name": "mint",
+        "outputs": [
+          {
+            "internalType": "bytes32",
+            "name": "amountsReceived",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "amountsLeft",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "liquidityMinted",
+            "type": "uint256[]"
+          }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "name",
+        "outputs": [
+          {
+            "internalType": "string",
+            "name": "",
+            "type": "string"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "bytes32",
+            "name": "hooksParameters",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "bytes",
+            "name": "onHooksSetData",
+            "type": "bytes"
+          }
+        ],
+        "name": "setHooksParameters",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint16",
+            "name": "baseFactor",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint16",
+            "name": "filterPeriod",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint16",
+            "name": "decayPeriod",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint16",
+            "name": "reductionFactor",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint24",
+            "name": "variableFeeControl",
+            "type": "uint24"
+          },
+          {
+            "internalType": "uint16",
+            "name": "protocolShare",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint24",
+            "name": "maxVolatilityAccumulator",
+            "type": "uint24"
+          }
+        ],
+        "name": "setStaticFeeParameters",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "bool",
+            "name": "swapForY",
+            "type": "bool"
+          },
+          {
+            "internalType": "address",
+            "name": "to",
+            "type": "address"
+          }
+        ],
+        "name": "swap",
+        "outputs": [
+          {
+            "internalType": "bytes32",
+            "name": "amountsOut",
+            "type": "bytes32"
+          }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "symbol",
+        "outputs": [
+          {
+            "internalType": "string",
+            "name": "",
+            "type": "string"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "id",
+            "type": "uint256"
+          }
+        ],
+        "name": "totalSupply",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      }
+    ],
+    "devdoc": {
+      "author": "Trader Joe",
+      "errors": {
+        "InvalidInitialization()": [
+          {
+            "details": "The contract is already initialized."
+          }
+        ],
+        "NotInitializing()": [
+          {
+            "details": "The contract is not initializing."
+          }
+        ],
+        "ReentrancyGuardReentrantCall()": [
+          {
+            "details": "Unauthorized reentrant call."
+          }
+        ]
+      },
+      "events": {
+        "Initialized(uint64)": {
+          "details": "Triggered when the contract has been initialized or reinitialized."
+        }
+      },
+      "kind": "dev",
+      "methods": {
+        "approveForAll(address,bool)": {
+          "params": {
+            "approved": "The boolean value to grant or revoke permission.",
+            "spender": "The address of the spender."
+          }
+        },
+        "balanceOf(address,uint256)": {
+          "params": {
+            "account": "The address of the owner.",
+            "id": "The token id."
+          },
+          "returns": {
+            "_0": "The amount of tokens of type `id` owned by `account`."
+          }
+        },
+        "balanceOfBatch(address[],uint256[])": {
+          "params": {
+            "accounts": "The addresses of the owners.",
+            "ids": "The token ids."
+          },
+          "returns": {
+            "batchBalances": "The balance for each (account, id) pair."
+          }
+        },
+        "batchTransferFrom(address,address,uint256[],uint256[])": {
+          "params": {
+            "amounts": "The amounts of the tokens to transfer",
+            "from": "The address to transfer from",
+            "ids": "The ids of the tokens to transfer",
+            "to": "The address to transfer to"
+          }
+        },
+        "burn(address,address,uint256[],uint256[])": {
+          "params": {
+            "amountsToBurn": "The amounts of LB tokens to burn for each bin",
+            "from": "The address that will burn the LB tokens",
+            "ids": "The ids of the bins from which to withdraw",
+            "to": "The address that will receive the tokens"
+          },
+          "returns": {
+            "amounts": "The amounts of token X and token Y received by the user"
+          }
+        },
+        "collectProtocolFees()": {
+          "returns": {
+            "collectedProtocolFees": "The amount of protocol fees collected"
+          }
+        },
+        "constructor": {
+          "details": "Constructor for the Liquidity Book Pair contract that sets the Liquidity Book Factory",
+          "params": {
+            "factory_": "The Liquidity Book Factory"
+          }
+        },
+        "flashLoan(address,bytes32,bytes)": {
+          "params": {
+            "amounts": "The encoded amounts of token X and token Y to flash loan",
+            "data": "Any data that will be passed to the callback function",
+            "receiver": "The contract that will receive the tokens and execute the callback function"
+          }
+        },
+        "forceDecay()": {
+          "details": "Can only be called by the factory"
+        },
+        "getActiveId()": {
+          "details": "The active id is the id of the bin that is currently being used for swaps. The price of the active bin is the price of the Liquidity Book Pair and can be calculated as follows: `price = (1 + binStep / 10_000) ^ (activeId - 2^23)`",
+          "returns": {
+            "activeId": "The active id of the Liquidity Book Pair"
+          }
+        },
+        "getBin(uint24)": {
+          "params": {
+            "id": "The id of the bin"
+          },
+          "returns": {
+            "binReserveX": "The reserve of token X in the bin",
+            "binReserveY": "The reserve of token Y in the bin"
+          }
+        },
+        "getBinStep()": {
+          "details": "The bin step is the increase in price between two consecutive bins, in basis points. For example, a bin step of 1 means that the price of the next bin is 0.01% higher than the price of the previous bin.",
+          "returns": {
+            "_0": "binStep The bin step of the Liquidity Book Pair, in 10_000th"
+          }
+        },
+        "getFactory()": {
+          "returns": {
+            "factory": "The Liquidity Book Factory"
+          }
+        },
+        "getIdFromPrice(uint256)": {
+          "details": "The id may be inaccurate due to rounding issues, always trust getPriceFromId rather than getIdFromPrice",
+          "params": {
+            "price": "The price of y per x as a 128.128-binary fixed-point number"
+          },
+          "returns": {
+            "id": "The id of the bin corresponding to this price"
+          }
+        },
+        "getLBHooksParameters()": {
+          "returns": {
+            "_0": "The hooks parameters of the Liquidity Book Pair"
+          }
+        },
+        "getNextNonEmptyBin(bool,uint24)": {
+          "details": "The next non-empty bin is the bin with a higher (if swapForY is true) or lower (if swapForY is false) id that has a non-zero reserve of token X or Y.",
+          "params": {
+            "id": "The id of the bin",
+            "swapForY": "Whether the swap is for token Y (true) or token X (false"
+          },
+          "returns": {
+            "nextId": "The id of the next non-empty bin"
+          }
+        },
+        "getOracleParameters()": {
+          "returns": {
+            "activeSize": "The active size of the oracle",
+            "firstTimestamp": "The first timestamp of the oracle, i.e. the timestamp of the oldest sample",
+            "lastUpdated": "The last updated timestamp of the oracle",
+            "sampleLifetime": "The sample lifetime for the oracle",
+            "size": "The size of the oracle"
+          }
+        },
+        "getOracleSampleAt(uint40)": {
+          "details": "The cumulative values are the cumulative id, the cumulative volatility and the cumulative bin crossed.",
+          "params": {
+            "lookupTimestamp": "The timestamp at which to look up the cumulative values"
+          },
+          "returns": {
+            "cumulativeBinCrossed": "The cumulative bin crossed of the Liquidity Book Pair at the given timestamp",
+            "cumulativeId": "The cumulative id of the Liquidity Book Pair at the given timestamp",
+            "cumulativeVolatility": "The cumulative volatility of the Liquidity Book Pair at the given timestamp"
+          }
+        },
+        "getPriceFromId(uint24)": {
+          "details": "This is the trusted source of price information, always trust this rather than getIdFromPrice",
+          "params": {
+            "id": "The id of the bin"
+          },
+          "returns": {
+            "price": "The price corresponding to this id"
+          }
+        },
+        "getProtocolFees()": {
+          "returns": {
+            "protocolFeeX": "The protocol fees of token X",
+            "protocolFeeY": "The protocol fees of token Y"
+          }
+        },
+        "getReserves()": {
+          "returns": {
+            "reserveX": "The reserve of token X",
+            "reserveY": "The reserve of token Y"
+          }
+        },
+        "getStaticFeeParameters()": {
+          "returns": {
+            "baseFactor": "The base factor for the static fee",
+            "decayPeriod": "The decay period for the static fee",
+            "filterPeriod": "The filter period for the static fee",
+            "maxVolatilityAccumulator": "The maximum volatility accumulator for the static fee",
+            "protocolShare": "The protocol share for the static fee",
+            "reductionFactor": "The reduction factor for the static fee",
+            "variableFeeControl": "The variable fee control for the static fee"
+          }
+        },
+        "getSwapIn(uint128,bool)": {
+          "details": "If `amountOutLeft` is greater than zero, the swap in is not possible, and the maximum amount that can be swapped from `amountIn` is `amountOut - amountOutLeft`.",
+          "params": {
+            "amountOut": "The amount of token X or Y to swap in",
+            "swapForY": "Whether the swap is for token Y (true) or token X (false)"
+          },
+          "returns": {
+            "amountIn": "The amount of token X or Y that can be swapped in, including the fee",
+            "amountOutLeft": "The amount of token Y or X that cannot be swapped out",
+            "fee": "The fee of the swap"
+          }
+        },
+        "getSwapOut(uint128,bool)": {
+          "details": "If `amountInLeft` is greater than zero, the swap out is not possible, and the maximum amount that can be swapped is `amountIn - amountInLeft` for `amountOut`.",
+          "params": {
+            "amountIn": "The amount of token X or Y to swap in",
+            "swapForY": "Whether the swap is for token Y (true) or token X (false)"
+          },
+          "returns": {
+            "amountInLeft": "The amount of token X or Y that cannot be swapped in",
+            "amountOut": "The amount of token Y or X that can be swapped out",
+            "fee": "The fee of the swap"
+          }
+        },
+        "getTokenX()": {
+          "returns": {
+            "tokenX": "The address of the token X"
+          }
+        },
+        "getTokenY()": {
+          "returns": {
+            "tokenY": "The address of the token Y"
+          }
+        },
+        "getVariableFeeParameters()": {
+          "returns": {
+            "idReference": "The id reference for the variable fee",
+            "timeOfLastUpdate": "The time of last update for the variable fee",
+            "volatilityAccumulator": "The volatility accumulator for the variable fee",
+            "volatilityReference": "The volatility reference for the variable fee"
+          }
+        },
+        "increaseOracleLength(uint16)": {
+          "params": {
+            "newLength": "The new length of the oracle"
+          }
+        },
+        "initialize(uint16,uint16,uint16,uint16,uint24,uint16,uint24,uint24)": {
+          "details": "Can only be called by the Liquidity Book Factory",
+          "params": {
+            "activeId": "The active id of the Liquidity Book Pair",
+            "baseFactor": "The base factor for the static fee",
+            "decayPeriod": "The decay period for the static fee",
+            "filterPeriod": "The filter period for the static fee",
+            "maxVolatilityAccumulator": "The max volatility accumulator for the static fee",
+            "protocolShare": "The protocol share for the static fee",
+            "reductionFactor": "The reduction factor for the static fee",
+            "variableFeeControl": "The variable fee control for the static fee"
+          }
+        },
+        "isApprovedForAll(address,address)": {
+          "params": {
+            "owner": "The address of the owner.",
+            "spender": "The address of the spender."
+          },
+          "returns": {
+            "_0": "True if `spender` is approved to transfer `owner`'s tokens."
+          }
+        },
+        "mint(address,bytes32[],address)": {
+          "details": "Any excess amount of token will be sent to the `to` address.",
+          "params": {
+            "liquidityConfigs": "The encoded liquidity configurations, each one containing the id of the bin and the percentage of token X and token Y to add to the bin.",
+            "refundTo": "The address that will receive the excess amount of tokens",
+            "to": "The address that will receive the LB tokens"
+          },
+          "returns": {
+            "amountsLeft": "The amounts of token X and token Y that were not added to the pool and were sent to `to`",
+            "amountsReceived": "The amounts of token X and token Y received by the pool",
+            "liquidityMinted": "The amounts of LB tokens minted for each bin"
+          }
+        },
+        "name()": {
+          "returns": {
+            "_0": "The name of the token."
+          }
+        },
+        "setHooksParameters(bytes32,bytes)": {
+          "details": "Can only be called by the factory",
+          "params": {
+            "hooksParameters": "The hooks parameter",
+            "onHooksSetData": "The data to be passed to the onHooksSet function of the hooks contract"
+          }
+        },
+        "setStaticFeeParameters(uint16,uint16,uint16,uint16,uint24,uint16,uint24)": {
+          "details": "Can only be called by the factory",
+          "params": {
+            "baseFactor": "The base factor of the static fee",
+            "decayPeriod": "The decay period of the static fee",
+            "filterPeriod": "The filter period of the static fee",
+            "maxVolatilityAccumulator": "The max volatility accumulator of the static fee",
+            "protocolShare": "The protocol share of the static fee",
+            "reductionFactor": "The reduction factor of the static fee",
+            "variableFeeControl": "The variable fee control of the static fee"
+          }
+        },
+        "swap(bool,address)": {
+          "params": {
+            "swapForY": "Whether you're swapping token X for token Y (true) or token Y for token X (false)",
+            "to": "The address to send the tokens to"
+          },
+          "returns": {
+            "amountsOut": "The encoded amounts of token X and token Y sent to `to`"
+          }
+        },
+        "symbol()": {
+          "returns": {
+            "_0": "The symbol of the token."
+          }
+        },
+        "totalSupply(uint256)": {
+          "details": "This is the amount of token of type `id` minted minus the amount burned.",
+          "params": {
+            "id": "The token id."
+          },
+          "returns": {
+            "_0": "The total supply of that token id."
+          }
+        }
+      },
+      "title": "Liquidity Book Pair",
+      "version": 1
+    },
+    "userdoc": {
+      "kind": "user",
+      "methods": {
+        "approveForAll(address,bool)": {
+          "notice": "Grants or revokes permission to `spender` to transfer the caller's lbTokens, according to `approved`."
+        },
+        "balanceOf(address,uint256)": {
+          "notice": "Returns the amount of tokens of type `id` owned by `account`."
+        },
+        "balanceOfBatch(address[],uint256[])": {
+          "notice": "Return the balance of multiple (account/id) pairs."
+        },
+        "batchTransferFrom(address,address,uint256[],uint256[])": {
+          "notice": "Overrides the batch transfer function to call the hooks before and after the transfer"
+        },
+        "burn(address,address,uint256[],uint256[])": {
+          "notice": "Burn Liquidity Book (LB) tokens and withdraw tokens from the pool. This function will burn the tokens directly from the caller"
+        },
+        "collectProtocolFees()": {
+          "notice": "Collect the protocol fees from the pool."
+        },
+        "flashLoan(address,bytes32,bytes)": {
+          "notice": "Flash loan tokens from the pool to a receiver contract and execute a callback function. The receiver contract is expected to return the tokens plus a fee to this contract. The fee is calculated as a percentage of the amount borrowed, and is the same for both tokens."
+        },
+        "forceDecay()": {
+          "notice": "Forces the decay of the volatility reference variables"
+        },
+        "getActiveId()": {
+          "notice": "Returns the active id of the Liquidity Book Pair"
+        },
+        "getBin(uint24)": {
+          "notice": "Returns the reserves of a bin"
+        },
+        "getBinStep()": {
+          "notice": "Returns the bin step of the Liquidity Book Pair"
+        },
+        "getFactory()": {
+          "notice": "Returns the Liquidity Book Factory"
+        },
+        "getIdFromPrice(uint256)": {
+          "notice": "Returns the id corresponding to the given price"
+        },
+        "getLBHooksParameters()": {
+          "notice": "Gets the hooks parameters of the Liquidity Book Pair"
+        },
+        "getNextNonEmptyBin(bool,uint24)": {
+          "notice": "Returns the next non-empty bin"
+        },
+        "getOracleParameters()": {
+          "notice": "Returns the oracle parameters of the Liquidity Book Pair"
+        },
+        "getOracleSampleAt(uint40)": {
+          "notice": "Returns the cumulative values of the Liquidity Book Pair at a given timestamp"
+        },
+        "getPriceFromId(uint24)": {
+          "notice": "Returns the price corresponding to the given id, as a 128.128-binary fixed-point number"
+        },
+        "getProtocolFees()": {
+          "notice": "Returns the protocol fees of the Liquidity Book Pair"
+        },
+        "getReserves()": {
+          "notice": "Returns the reserves of the Liquidity Book Pair This is the sum of the reserves of all bins, minus the protocol fees."
+        },
+        "getStaticFeeParameters()": {
+          "notice": "Returns the static fee parameters of the Liquidity Book Pair"
+        },
+        "getSwapIn(uint128,bool)": {
+          "notice": "Simulates a swap in."
+        },
+        "getSwapOut(uint128,bool)": {
+          "notice": "Simulates a swap out."
+        },
+        "getTokenX()": {
+          "notice": "Returns the token X of the Liquidity Book Pair"
+        },
+        "getTokenY()": {
+          "notice": "Returns the token Y of the Liquidity Book Pair"
+        },
+        "getVariableFeeParameters()": {
+          "notice": "Returns the variable fee parameters of the Liquidity Book Pair"
+        },
+        "increaseOracleLength(uint16)": {
+          "notice": "Increase the length of the oracle used by the pool"
+        },
+        "initialize(uint16,uint16,uint16,uint16,uint24,uint16,uint24,uint24)": {
+          "notice": "Initialize the Liquidity Book Pair fee parameters and active id"
+        },
+        "isApprovedForAll(address,address)": {
+          "notice": "Returns true if `spender` is approved to transfer `owner`'s tokens or if `spender` is the `owner`."
+        },
+        "mint(address,bytes32[],address)": {
+          "notice": "Mint liquidity tokens by depositing tokens into the pool. It will mint Liquidity Book (LB) tokens for each bin where the user adds liquidity. This function will not transfer the tokens from the caller, it is expected that the tokens have already been transferred to this contract through another contract, most likely the router. That is why this function shouldn't be called directly, but through one of the add liquidity functions of a router that will also perform safety checks."
+        },
+        "name()": {
+          "notice": "Returns the name of the token."
+        },
+        "setHooksParameters(bytes32,bytes)": {
+          "notice": "Sets the hooks parameter of the pool"
+        },
+        "setStaticFeeParameters(uint16,uint16,uint16,uint16,uint24,uint16,uint24)": {
+          "notice": "Sets the static fee parameters of the pool"
+        },
+        "swap(bool,address)": {
+          "notice": "Swap tokens iterating over the bins until the entire amount is swapped. Token X will be swapped for token Y if `swapForY` is true, and token Y for token X if `swapForY` is false. This function will not transfer the tokens from the caller, it is expected that the tokens have already been transferred to this contract through another contract, most likely the router. That is why this function shouldn't be called directly, but only through one of the swap functions of a router that will also perform safety checks, such as minimum amounts and slippage. The variable fee is updated throughout the swap, it increases with the number of bins crossed. The oracle is updated at the end of the swap."
+        },
+        "symbol()": {
+          "notice": "Returns the symbol of the token, usually a shorter version of the name."
+        },
+        "totalSupply(uint256)": {
+          "notice": "Returns the total supply of token of type `id`. /**"
+        }
+      },
+      "notice": "The Liquidity Book Pair contract is the core contract of the Liquidity Book protocol",
+      "version": 1
+    }
+  },
+  "settings": {
+    "compilationTarget": {
+      "contracts/joe-v2/src/LBPair.sol": "LBPair"
+    },
+    "evmVersion": "paris",
+    "libraries": {},
+    "metadata": {
+      "bytecodeHash": "ipfs"
+    },
+    "optimizer": {
+      "enabled": true,
+      "runs": 800
+    },
+    "remappings": []
+  },
+  "sources": {
+    "contracts/joe-v2/lib/openzeppelin-contracts-upgradeable/contracts/proxy/utils/Initializable.sol": {
+      "keccak256": "0x631188737069917d2f909d29ce62c4d48611d326686ba6683e26b72a23bfac0b",
+      "license": "MIT",
+      "urls": [
+        "bzz-raw://7a61054ae84cd6c4d04c0c4450ba1d6de41e27e0a2c4f1bcdf58f796b401c609",
+        "dweb:/ipfs/QmUvtdp7X1mRVyC3CsHrtPbgoqWaXHp3S1ZR24tpAQYJWM"
+      ]
+    },
+    "contracts/joe-v2/lib/openzeppelin-contracts/contracts/token/ERC20/IERC20.sol": {
+      "keccak256": "0xee2337af2dc162a973b4be6d3f7c16f06298259e0af48c5470d2839bfa8a22f4",
+      "license": "MIT",
+      "urls": [
+        "bzz-raw://30c476b4b2f405c1bb3f0bae15b006d129c80f1bfd9d0f2038160a3bb9745009",
+        "dweb:/ipfs/Qmb3VcuDufv6xbHeVgksC4tHpc5gKYVqBEwjEXW72XzSvN"
+      ]
+    },
+    "contracts/joe-v2/src/LBPair.sol": {
+      "keccak256": "0x1474711e0562cf3e3211b82c3ae8f6d1d34221f3cc903d831eae3705da112acd",
+      "license": "MIT",
+      "urls": [
+        "bzz-raw://ca38b7c901d04585c4158c0a48d437c294869507aabdc92d228e5f760445d1fe",
+        "dweb:/ipfs/QmZEd9Eah5UJfoWRHhsqb5jvs5tVmmgttkWpLKYa5JSmMJ"
+      ]
+    },
+    "contracts/joe-v2/src/LBToken.sol": {
+      "keccak256": "0xb36f9e25be004ad59e4cadff31ccb80701f20e240984e9f27d4fa4c481ba76b8",
+      "license": "MIT",
+      "urls": [
+        "bzz-raw://64cacbc9517892191513f076f280046ee024e0bcc2f5f0baea7952106a1aa76d",
+        "dweb:/ipfs/QmdZsJJ1TZ4sirNgvqG9W5pegM1bCbXyb6LEDxJ7pCQ7K6"
+      ]
+    },
+    "contracts/joe-v2/src/interfaces/ILBFactory.sol": {
+      "keccak256": "0xfc815a05b28165166b4e06c9c025e35807d5e0f6a406b96ec7ebe176dedf8d95",
+      "license": "MIT",
+      "urls": [
+        "bzz-raw://3542a541bec579d39f1e9dbb0f45d3f70ce3ebf45c74449b36ebdd697e06f6b3",
+        "dweb:/ipfs/QmUPbvYBpVPwW9Xb9UBukrBzuQirTSv6rwaurVrgV1CLSt"
+      ]
+    },
+    "contracts/joe-v2/src/interfaces/ILBFlashLoanCallback.sol": {
+      "keccak256": "0x14e08d6774de7f9a6b0b008e4a2132e28ac5d9e0ed9327c2d305ccd4a8e500d8",
+      "license": "MIT",
+      "urls": [
+        "bzz-raw://316063733817a0d300b2f3c6cdd598be35745343646601dd370c1037e851bd88",
+        "dweb:/ipfs/QmRV3tNsZ4VcyNWiBphDbWM8bxV41sstKkgziuYyGphnE7"
+      ]
+    },
+    "contracts/joe-v2/src/interfaces/ILBHooks.sol": {
+      "keccak256": "0xad32a000f052e48266932bc3eb9818de0a80b77235ae5d44d9a5286264992f1a",
+      "license": "MIT",
+      "urls": [
+        "bzz-raw://044044be7373a509f946ede2ee05580f55438ce317e3c538a888208f18f39109",
+        "dweb:/ipfs/QmWK93hkd91t7LQRnVN1QZXUniCLh5HifXrww5BhRxaD9n"
+      ]
+    },
+    "contracts/joe-v2/src/interfaces/ILBPair.sol": {
+      "keccak256": "0x9c2afceaceaa81e316e09122d89f6ae4310353877178a1cae4a36756f26e3ee1",
+      "license": "MIT",
+      "urls": [
+        "bzz-raw://fa6917af5b29e67f5496b1043abba27f4af41481df094ec69aba36331c4229ce",
+        "dweb:/ipfs/QmP84Q4P5dNw18FDhg4xXPbHXgNxggRicmJmAPNpkTxUjo"
+      ]
+    },
+    "contracts/joe-v2/src/interfaces/ILBToken.sol": {
+      "keccak256": "0x6ec82e130bfcee455420f5b6025dd9f6237654c5d081b1a929de1c4ac942387a",
+      "license": "MIT",
+      "urls": [
+        "bzz-raw://ba0a398ffeea4227ce9eee3a76c97a47a8ac39ac2b85cda60bc24a93c5c7386a",
+        "dweb:/ipfs/QmP1oUtTGG6PWu1n9T7n38iQVKMsDavhA9kCyLSjWTEgLt"
+      ]
+    },
+    "contracts/joe-v2/src/libraries/BinHelper.sol": {
+      "keccak256": "0xa6195c864ee0b8dca8fca9e7caa57cbd7bc9030c70aae4e1f1539db72390c2e7",
+      "license": "MIT",
+      "urls": [
+        "bzz-raw://2a000530f5d9bd7a9c6c908c568d256a66f2b3e69d0ec78e027162f25b7393f9",
+        "dweb:/ipfs/QmZypaixp9XeSCY5sWCrQXqQYUXEZpzqcHQSq7WowYraP5"
+      ]
+    },
+    "contracts/joe-v2/src/libraries/Clone.sol": {
+      "keccak256": "0x07e80742324ba0e91af1221b07a2868ba736c42e02c29c216da047c9c13d6814",
+      "license": "MIT",
+      "urls": [
+        "bzz-raw://74ef31549ae883e5249c2e7b324fe309eb152e0e654da7e4e9f89cc2e35534a3",
+        "dweb:/ipfs/QmbMhooa3LV9RDrAzVYBpw4vAurHztt638vCuKF5E4ymjV"
+      ]
+    },
+    "contracts/joe-v2/src/libraries/Constants.sol": {
+      "keccak256": "0xeb531944284c1a12410b47605869a65f7a3d6f97e24e9dff5a9b8972e9dd6e5a",
+      "license": "MIT",
+      "urls": [
+        "bzz-raw://4840c7e6de5c27bd9c46bed582bdaa9e7de4b9d3e9441a4b7b0de40f6ae1e7ca",
+        "dweb:/ipfs/QmNZnqNc2MayvLR3VsmPZ3tzhkFkPgD3J7tKLwWr6mzFxM"
+      ]
+    },
+    "contracts/joe-v2/src/libraries/FeeHelper.sol": {
+      "keccak256": "0x577da4f975f0b547bcfabe9fe6ca8562bcbe12459e0b4b40408829453eabedef",
+      "license": "MIT",
+      "urls": [
+        "bzz-raw://cbd6b51786286234c95eaa6e20b78365ee661baacf8fa8d15b1208eebaf1b3c7",
+        "dweb:/ipfs/QmSNtWqGMiuzCjYnLTMKCuYFkAcNunQ5uXKSPeU3jt7uRh"
+      ]
+    },
+    "contracts/joe-v2/src/libraries/Hooks.sol": {
+      "keccak256": "0xa68b3308bf297c2cd03f2e4f28a6a5e0e68c415d617672bf356aadff56c53959",
+      "license": "MIT",
+      "urls": [
+        "bzz-raw://b9a6b20fd8aeefacb64dbf3b463b0c10cb8848fd61f4f3344ed53731ffaf686a",
+        "dweb:/ipfs/QmRvcBNazvsKvfDXQtdQj3GczaNLbFcqVYdcJCoRA6MDop"
+      ]
+    },
+    "contracts/joe-v2/src/libraries/OracleHelper.sol": {
+      "keccak256": "0x16fa0f11ffc303f7c8aa65b8a416a5e26ce9dd7bd7e879d44e1c8ab5d5c49a3a",
+      "license": "MIT",
+      "urls": [
+        "bzz-raw://e3d2277abdca1bce6a2506faf028c1215a17c9d886146f2b12ea56b1f5ddb409",
+        "dweb:/ipfs/QmTbS7WN5QC7wb86UYfDpYC5jryZnsaUAh4iNPmEenWZWF"
+      ]
+    },
+    "contracts/joe-v2/src/libraries/PairParameterHelper.sol": {
+      "keccak256": "0x53163f663dad415ede2e5f0705700268445eb0586070fb253ff65f9afbcc1a8b",
+      "license": "MIT",
+      "urls": [
+        "bzz-raw://4f07672f538f7b0a4b826379f988d5cd17c93eab371b8dee597a2228f2c1533d",
+        "dweb:/ipfs/Qmaq2AUCiRzrqnWPVE7TH62ZTUcYJ4cXSGGRQV4q8ASELZ"
+      ]
+    },
+    "contracts/joe-v2/src/libraries/PriceHelper.sol": {
+      "keccak256": "0xe660c07d0812609a65bcdccc1d7212116e8075c3a86cf9b15ead3639b0f9fdb7",
+      "license": "MIT",
+      "urls": [
+        "bzz-raw://61c85e1bc1107f22b13c3c5e43fdda89eb6ed3f9ab9df123e18914b24f3ff054",
+        "dweb:/ipfs/QmUewajrhnmLPJ7qgDmXb4FZbNJdtArxGu5eQca8Mo1YTb"
+      ]
+    },
+    "contracts/joe-v2/src/libraries/ReentrancyGuardUpgradeable.sol": {
+      "keccak256": "0x9bb9e4b1e49208789aa4befc2631fb8a86f81cb1f769eaa60fcff694945747e2",
+      "license": "MIT",
+      "urls": [
+        "bzz-raw://0ec8e5d8f0b34f298ed2e91b316adc6261c129b077c2a586a4fd40ac50ea4c6f",
+        "dweb:/ipfs/QmWkBFahURMJH113BSKTyfR7Ro1jr251Q6pizK2W4UthYG"
+      ]
+    },
+    "contracts/joe-v2/src/libraries/TokenHelper.sol": {
+      "keccak256": "0x466462528008d2b64f46dc91de2d6963ea8cf88933affdb913dd83f8fe9d5787",
+      "license": "MIT",
+      "urls": [
+        "bzz-raw://2cd3f4c3658287550e1afc53755d37d1ff9ed2b9124593330c5c10cfbde8233c",
+        "dweb:/ipfs/QmZVJwVCCK223uzZ2Sne6r1mJSxYu7BufXpAmXGAyHPETc"
+      ]
+    },
+    "contracts/joe-v2/src/libraries/math/BitMath.sol": {
+      "keccak256": "0x7b359776521706ae1291cbf8707919aaa5cb78d59b9dfbe5393322c393250b1f",
+      "license": "MIT",
+      "urls": [
+        "bzz-raw://bb9fe4accf6abda06f8b4ba02f86d37df109e4b8d14b78a848eb4b4cee359485",
+        "dweb:/ipfs/QmSTkrek6fhvgiato8tC6ARz4M11Ynqgyuy7d2QeGiWXEG"
+      ]
+    },
+    "contracts/joe-v2/src/libraries/math/Encoded.sol": {
+      "keccak256": "0xd7caeb3b8c48ac9015c89a5fc6e6387a421359c0d773b6cd276baa17eb8c4c3f",
+      "license": "MIT",
+      "urls": [
+        "bzz-raw://100c723b4e0739a2fcb9e6f429c0db1583392a92bb8e85af41f1e1b3f632ab50",
+        "dweb:/ipfs/QmSCWAoZfo8hS4ZUUcohahc93pMLSUXFHLfkpLq7QBkPBz"
+      ]
+    },
+    "contracts/joe-v2/src/libraries/math/LiquidityConfigurations.sol": {
+      "keccak256": "0x0508102d0e1197ec2e323bd518fae0862c379345a1473e095509ff53c6070e74",
+      "license": "MIT",
+      "urls": [
+        "bzz-raw://ebcaba260405c768eacd1a9aaf5e824936324410b85a57b87383832fca8ab580",
+        "dweb:/ipfs/QmVDrsm2RVPXB6L8bNmMQnxNnrUeavscWPtfERVCbRY6i7"
+      ]
+    },
+    "contracts/joe-v2/src/libraries/math/PackedUint128Math.sol": {
+      "keccak256": "0x4e57313a54c7809e23cfbda591daf98f21fbabe6db88168c98f62e9cf48199bb",
+      "license": "MIT",
+      "urls": [
+        "bzz-raw://f14817b310ad63744d86bdcb460d5b226c450d180e61ef7a6aae00bf02bb9bab",
+        "dweb:/ipfs/QmR6ua4JXdFgwaUKzRTCbBvQGKvQD2arHS1RkDf8zTzU2e"
+      ]
+    },
+    "contracts/joe-v2/src/libraries/math/SafeCast.sol": {
+      "keccak256": "0x3e22926e8f7d352568f01a896860c83b3ab35b47a0ed9a0f2e780a82aa52f4a8",
+      "license": "MIT",
+      "urls": [
+        "bzz-raw://3fc2ade1520197ab28ad6292a1d70d3182b9741030ad69c8a915b4c09ebec1f5",
+        "dweb:/ipfs/QmYRtP5AiMXCpiBPrmuWd2R1mYGyuXoa24GeZJRUBSS7wH"
+      ]
+    },
+    "contracts/joe-v2/src/libraries/math/SampleMath.sol": {
+      "keccak256": "0x49e66f461bfb118708ce22674b9335314f192f59fe07d1935d3d8b4e9319a364",
+      "license": "MIT",
+      "urls": [
+        "bzz-raw://bb230239bf4397b3d5c9af9409e0595c241edea0de388d6f2637cfc9b553a67f",
+        "dweb:/ipfs/QmXFhcmeB1sZJWKcwXTJwfpNfbQ6V7p5ex7QoXnaoDWDyp"
+      ]
+    },
+    "contracts/joe-v2/src/libraries/math/TreeMath.sol": {
+      "keccak256": "0xf4499104510a5ea48a68cec3dfc9608ae939294e62706fe05f41db41be4e8ff4",
+      "license": "MIT",
+      "urls": [
+        "bzz-raw://917742b80d321e51ff44332cbedb5e256a7a01488fe1231f9228eb88d12abda7",
+        "dweb:/ipfs/QmS737xKXgbzKW8h5VkfRgrR4qVsyq3s1HqomvM4VnujX6"
+      ]
+    },
+    "contracts/joe-v2/src/libraries/math/Uint128x128Math.sol": {
+      "keccak256": "0xe84206e2561ef32aef2d23ce5022f0174898a26d4d60346675e7a7fd76054fc0",
+      "license": "MIT",
+      "urls": [
+        "bzz-raw://4238023aeb54caf0d245b00063b37a736142413d3040a175b8d5765ee148242d",
+        "dweb:/ipfs/QmSqvRJAxtCLjkp19rW8jxzvocr6e478u2Ge5iLyJojJXF"
+      ]
+    },
+    "contracts/joe-v2/src/libraries/math/Uint256x256Math.sol": {
+      "keccak256": "0xa85a6d3be7cdf95ec9b246d36c3843de738af3df11fcc2bf8bf6e15c350870d6",
+      "license": "MIT",
+      "urls": [
+        "bzz-raw://ffa97dbe1dc755a243a81a2590e3f25e5399549351a941c2835cca190a0a3fa0",
+        "dweb:/ipfs/QmbKUhSjHj1Y48dCPfiYSLybQ8miYfQ99EWsWdP8orpeaB"
+      ]
+    }
+  },
+  "version": 1
+}

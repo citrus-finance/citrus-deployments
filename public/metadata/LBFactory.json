@@ -1,0 +1,2024 @@
+{
+  "compiler": {
+    "version": "0.8.20+commit.a1b79de6"
+  },
+  "language": "Solidity",
+  "output": {
+    "abi": [
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "feeRecipient",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "initialOwner",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "flashLoanFee",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+      },
+      {
+        "inputs": [],
+        "name": "AccessControlBadConfirmation",
+        "type": "error"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "account",
+            "type": "address"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "neededRole",
+            "type": "bytes32"
+          }
+        ],
+        "name": "AccessControlUnauthorizedAccount",
+        "type": "error"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "bytes32",
+            "name": "key",
+            "type": "bytes32"
+          }
+        ],
+        "name": "EnumerableMapNonexistentKey",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "LBFactory__AddressZero",
+        "type": "error"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "binStep",
+            "type": "uint256"
+          }
+        ],
+        "name": "LBFactory__BinStepHasNoPreset",
+        "type": "error"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "binStep",
+            "type": "uint256"
+          }
+        ],
+        "name": "LBFactory__BinStepTooLow",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "LBFactory__CannotGrantDefaultAdminRole",
+        "type": "error"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "fees",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "maxFees",
+            "type": "uint256"
+          }
+        ],
+        "name": "LBFactory__FlashLoanFeeAboveMax",
+        "type": "error"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "contract IERC20",
+            "name": "token",
+            "type": "address"
+          }
+        ],
+        "name": "LBFactory__IdenticalAddresses",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "LBFactory__ImplementationNotSet",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "LBFactory__InvalidHooksParameters",
+        "type": "error"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "contract IERC20",
+            "name": "tokenX",
+            "type": "address"
+          },
+          {
+            "internalType": "contract IERC20",
+            "name": "tokenY",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "_binStep",
+            "type": "uint256"
+          }
+        ],
+        "name": "LBFactory__LBPairAlreadyExists",
+        "type": "error"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "contract IERC20",
+            "name": "tokenX",
+            "type": "address"
+          },
+          {
+            "internalType": "contract IERC20",
+            "name": "tokenY",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "binStep",
+            "type": "uint256"
+          }
+        ],
+        "name": "LBFactory__LBPairDoesNotExist",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "LBFactory__LBPairIgnoredIsAlreadyInTheSameState",
+        "type": "error"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "contract IERC20",
+            "name": "tokenX",
+            "type": "address"
+          },
+          {
+            "internalType": "contract IERC20",
+            "name": "tokenY",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "binStep",
+            "type": "uint256"
+          }
+        ],
+        "name": "LBFactory__LBPairNotCreated",
+        "type": "error"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "LBPairImplementation",
+            "type": "address"
+          }
+        ],
+        "name": "LBFactory__LBPairSafetyCheckFailed",
+        "type": "error"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "user",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "binStep",
+            "type": "uint256"
+          }
+        ],
+        "name": "LBFactory__PresetIsLockedForUsers",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "LBFactory__PresetOpenStateIsAlreadyInTheSameState",
+        "type": "error"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "feeRecipient",
+            "type": "address"
+          }
+        ],
+        "name": "LBFactory__SameFeeRecipient",
+        "type": "error"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "flashLoanFee",
+            "type": "uint256"
+          }
+        ],
+        "name": "LBFactory__SameFlashLoanFee",
+        "type": "error"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "hooksImplementation",
+            "type": "address"
+          }
+        ],
+        "name": "LBFactory__SameHooksImplementation",
+        "type": "error"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "bytes32",
+            "name": "hooksParameters",
+            "type": "bytes32"
+          }
+        ],
+        "name": "LBFactory__SameHooksParameters",
+        "type": "error"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "LBPairImplementation",
+            "type": "address"
+          }
+        ],
+        "name": "LBFactory__SameImplementation",
+        "type": "error"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "owner",
+            "type": "address"
+          }
+        ],
+        "name": "OwnableInvalidOwner",
+        "type": "error"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "account",
+            "type": "address"
+          }
+        ],
+        "name": "OwnableUnauthorizedAccount",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "PairParametersHelper__InvalidParameter",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "SafeCast__Exceeds16Bits",
+        "type": "error"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "x",
+            "type": "uint256"
+          },
+          {
+            "internalType": "int256",
+            "name": "y",
+            "type": "int256"
+          }
+        ],
+        "name": "Uint128x128Math__PowUnderflow",
+        "type": "error"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": false,
+            "internalType": "address",
+            "name": "oldRecipient",
+            "type": "address"
+          },
+          {
+            "indexed": false,
+            "internalType": "address",
+            "name": "newRecipient",
+            "type": "address"
+          }
+        ],
+        "name": "FeeRecipientSet",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "oldFlashLoanFee",
+            "type": "uint256"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "newFlashLoanFee",
+            "type": "uint256"
+          }
+        ],
+        "name": "FlashLoanFeeSet",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "internalType": "contract IERC20",
+            "name": "tokenX",
+            "type": "address"
+          },
+          {
+            "indexed": true,
+            "internalType": "contract IERC20",
+            "name": "tokenY",
+            "type": "address"
+          },
+          {
+            "indexed": true,
+            "internalType": "uint256",
+            "name": "binStep",
+            "type": "uint256"
+          },
+          {
+            "indexed": false,
+            "internalType": "contract ILBPair",
+            "name": "LBPair",
+            "type": "address"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "pid",
+            "type": "uint256"
+          }
+        ],
+        "name": "LBPairCreated",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "internalType": "contract ILBPair",
+            "name": "LBPair",
+            "type": "address"
+          },
+          {
+            "indexed": false,
+            "internalType": "bool",
+            "name": "ignored",
+            "type": "bool"
+          }
+        ],
+        "name": "LBPairIgnoredStateChanged",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": false,
+            "internalType": "address",
+            "name": "oldLBPairImplementation",
+            "type": "address"
+          },
+          {
+            "indexed": false,
+            "internalType": "address",
+            "name": "LBPairImplementation",
+            "type": "address"
+          }
+        ],
+        "name": "LBPairImplementationSet",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "previousOwner",
+            "type": "address"
+          },
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "newOwner",
+            "type": "address"
+          }
+        ],
+        "name": "OwnershipTransferStarted",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "previousOwner",
+            "type": "address"
+          },
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "newOwner",
+            "type": "address"
+          }
+        ],
+        "name": "OwnershipTransferred",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "internalType": "uint256",
+            "name": "binStep",
+            "type": "uint256"
+          },
+          {
+            "indexed": true,
+            "internalType": "bool",
+            "name": "isOpen",
+            "type": "bool"
+          }
+        ],
+        "name": "PresetOpenStateChanged",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "internalType": "uint256",
+            "name": "binStep",
+            "type": "uint256"
+          }
+        ],
+        "name": "PresetRemoved",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "internalType": "uint256",
+            "name": "binStep",
+            "type": "uint256"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "baseFactor",
+            "type": "uint256"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "filterPeriod",
+            "type": "uint256"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "decayPeriod",
+            "type": "uint256"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "reductionFactor",
+            "type": "uint256"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "variableFeeControl",
+            "type": "uint256"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "protocolShare",
+            "type": "uint256"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "maxVolatilityAccumulator",
+            "type": "uint256"
+          }
+        ],
+        "name": "PresetSet",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "internalType": "bytes32",
+            "name": "role",
+            "type": "bytes32"
+          },
+          {
+            "indexed": true,
+            "internalType": "bytes32",
+            "name": "previousAdminRole",
+            "type": "bytes32"
+          },
+          {
+            "indexed": true,
+            "internalType": "bytes32",
+            "name": "newAdminRole",
+            "type": "bytes32"
+          }
+        ],
+        "name": "RoleAdminChanged",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "internalType": "bytes32",
+            "name": "role",
+            "type": "bytes32"
+          },
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "account",
+            "type": "address"
+          },
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "sender",
+            "type": "address"
+          }
+        ],
+        "name": "RoleGranted",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "internalType": "bytes32",
+            "name": "role",
+            "type": "bytes32"
+          },
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "account",
+            "type": "address"
+          },
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "sender",
+            "type": "address"
+          }
+        ],
+        "name": "RoleRevoked",
+        "type": "event"
+      },
+      {
+        "inputs": [],
+        "name": "DEFAULT_ADMIN_ROLE",
+        "outputs": [
+          {
+            "internalType": "bytes32",
+            "name": "",
+            "type": "bytes32"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "LB_HOOKS_MANAGER_ROLE",
+        "outputs": [
+          {
+            "internalType": "bytes32",
+            "name": "",
+            "type": "bytes32"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "acceptOwnership",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "contract IERC20",
+            "name": "tokenX",
+            "type": "address"
+          },
+          {
+            "internalType": "contract IERC20",
+            "name": "tokenY",
+            "type": "address"
+          },
+          {
+            "internalType": "uint24",
+            "name": "activeId",
+            "type": "uint24"
+          },
+          {
+            "internalType": "uint16",
+            "name": "binStep",
+            "type": "uint16"
+          }
+        ],
+        "name": "createLBPair",
+        "outputs": [
+          {
+            "internalType": "contract ILBPair",
+            "name": "pair",
+            "type": "address"
+          }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "contract ILBPair",
+            "name": "pair",
+            "type": "address"
+          }
+        ],
+        "name": "forceDecay",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "getAllBinSteps",
+        "outputs": [
+          {
+            "internalType": "uint256[]",
+            "name": "binStepWithPreset",
+            "type": "uint256[]"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "contract IERC20",
+            "name": "tokenX",
+            "type": "address"
+          },
+          {
+            "internalType": "contract IERC20",
+            "name": "tokenY",
+            "type": "address"
+          }
+        ],
+        "name": "getAllLBPairs",
+        "outputs": [
+          {
+            "components": [
+              {
+                "internalType": "uint16",
+                "name": "binStep",
+                "type": "uint16"
+              },
+              {
+                "internalType": "contract ILBPair",
+                "name": "LBPair",
+                "type": "address"
+              },
+              {
+                "internalType": "bool",
+                "name": "createdByOwner",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "ignoredForRouting",
+                "type": "bool"
+              }
+            ],
+            "internalType": "struct ILBFactory.LBPairInformation[]",
+            "name": "lbPairsAvailable",
+            "type": "tuple[]"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "getFeeRecipient",
+        "outputs": [
+          {
+            "internalType": "address",
+            "name": "feeRecipient",
+            "type": "address"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "getFlashLoanFee",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "flashLoanFee",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "index",
+            "type": "uint256"
+          }
+        ],
+        "name": "getLBPairAtIndex",
+        "outputs": [
+          {
+            "internalType": "contract ILBPair",
+            "name": "lbPair",
+            "type": "address"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "getLBPairImplementation",
+        "outputs": [
+          {
+            "internalType": "address",
+            "name": "lbPairImplementation",
+            "type": "address"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "contract IERC20",
+            "name": "tokenA",
+            "type": "address"
+          },
+          {
+            "internalType": "contract IERC20",
+            "name": "tokenB",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "binStep",
+            "type": "uint256"
+          }
+        ],
+        "name": "getLBPairInformation",
+        "outputs": [
+          {
+            "components": [
+              {
+                "internalType": "uint16",
+                "name": "binStep",
+                "type": "uint16"
+              },
+              {
+                "internalType": "contract ILBPair",
+                "name": "LBPair",
+                "type": "address"
+              },
+              {
+                "internalType": "bool",
+                "name": "createdByOwner",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "ignoredForRouting",
+                "type": "bool"
+              }
+            ],
+            "internalType": "struct ILBFactory.LBPairInformation",
+            "name": "lbPairInformation",
+            "type": "tuple"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "getMaxFlashLoanFee",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "maxFee",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "pure",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "getMinBinStep",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "minBinStep",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "pure",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "getNumberOfLBPairs",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "lbPairNumber",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "getOpenBinSteps",
+        "outputs": [
+          {
+            "internalType": "uint256[]",
+            "name": "openBinStep",
+            "type": "uint256[]"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "binStep",
+            "type": "uint256"
+          }
+        ],
+        "name": "getPreset",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "baseFactor",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "filterPeriod",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "decayPeriod",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "reductionFactor",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "variableFeeControl",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "protocolShare",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "maxVolatilityAccumulator",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "isOpen",
+            "type": "bool"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "bytes32",
+            "name": "role",
+            "type": "bytes32"
+          }
+        ],
+        "name": "getRoleAdmin",
+        "outputs": [
+          {
+            "internalType": "bytes32",
+            "name": "",
+            "type": "bytes32"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "bytes32",
+            "name": "role",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "address",
+            "name": "account",
+            "type": "address"
+          }
+        ],
+        "name": "grantRole",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "bytes32",
+            "name": "role",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "address",
+            "name": "account",
+            "type": "address"
+          }
+        ],
+        "name": "hasRole",
+        "outputs": [
+          {
+            "internalType": "bool",
+            "name": "",
+            "type": "bool"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "owner",
+        "outputs": [
+          {
+            "internalType": "address",
+            "name": "",
+            "type": "address"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "pendingOwner",
+        "outputs": [
+          {
+            "internalType": "address",
+            "name": "",
+            "type": "address"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "contract IERC20",
+            "name": "tokenX",
+            "type": "address"
+          },
+          {
+            "internalType": "contract IERC20",
+            "name": "tokenY",
+            "type": "address"
+          },
+          {
+            "internalType": "uint16",
+            "name": "binStep",
+            "type": "uint16"
+          }
+        ],
+        "name": "removeLBHooksOnPair",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint16",
+            "name": "binStep",
+            "type": "uint16"
+          }
+        ],
+        "name": "removePreset",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "renounceOwnership",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "bytes32",
+            "name": "role",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "address",
+            "name": "callerConfirmation",
+            "type": "address"
+          }
+        ],
+        "name": "renounceRole",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "bytes32",
+            "name": "role",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "address",
+            "name": "account",
+            "type": "address"
+          }
+        ],
+        "name": "revokeRole",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "feeRecipient",
+            "type": "address"
+          }
+        ],
+        "name": "setFeeRecipient",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "contract IERC20",
+            "name": "tokenX",
+            "type": "address"
+          },
+          {
+            "internalType": "contract IERC20",
+            "name": "tokenY",
+            "type": "address"
+          },
+          {
+            "internalType": "uint16",
+            "name": "binStep",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint16",
+            "name": "baseFactor",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint16",
+            "name": "filterPeriod",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint16",
+            "name": "decayPeriod",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint16",
+            "name": "reductionFactor",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint24",
+            "name": "variableFeeControl",
+            "type": "uint24"
+          },
+          {
+            "internalType": "uint16",
+            "name": "protocolShare",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint24",
+            "name": "maxVolatilityAccumulator",
+            "type": "uint24"
+          }
+        ],
+        "name": "setFeesParametersOnPair",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "flashLoanFee",
+            "type": "uint256"
+          }
+        ],
+        "name": "setFlashLoanFee",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "contract IERC20",
+            "name": "tokenX",
+            "type": "address"
+          },
+          {
+            "internalType": "contract IERC20",
+            "name": "tokenY",
+            "type": "address"
+          },
+          {
+            "internalType": "uint16",
+            "name": "binStep",
+            "type": "uint16"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "hooksParameters",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "bytes",
+            "name": "onHooksSetData",
+            "type": "bytes"
+          }
+        ],
+        "name": "setLBHooksParametersOnPair",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "contract IERC20",
+            "name": "tokenX",
+            "type": "address"
+          },
+          {
+            "internalType": "contract IERC20",
+            "name": "tokenY",
+            "type": "address"
+          },
+          {
+            "internalType": "uint16",
+            "name": "binStep",
+            "type": "uint16"
+          },
+          {
+            "internalType": "bool",
+            "name": "ignored",
+            "type": "bool"
+          }
+        ],
+        "name": "setLBPairIgnored",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "newLBPairImplementation",
+            "type": "address"
+          }
+        ],
+        "name": "setLBPairImplementation",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint16",
+            "name": "binStep",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint16",
+            "name": "baseFactor",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint16",
+            "name": "filterPeriod",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint16",
+            "name": "decayPeriod",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint16",
+            "name": "reductionFactor",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint24",
+            "name": "variableFeeControl",
+            "type": "uint24"
+          },
+          {
+            "internalType": "uint16",
+            "name": "protocolShare",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint24",
+            "name": "maxVolatilityAccumulator",
+            "type": "uint24"
+          },
+          {
+            "internalType": "bool",
+            "name": "isOpen",
+            "type": "bool"
+          }
+        ],
+        "name": "setPreset",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint16",
+            "name": "binStep",
+            "type": "uint16"
+          },
+          {
+            "internalType": "bool",
+            "name": "isOpen",
+            "type": "bool"
+          }
+        ],
+        "name": "setPresetOpenState",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "bytes4",
+            "name": "interfaceId",
+            "type": "bytes4"
+          }
+        ],
+        "name": "supportsInterface",
+        "outputs": [
+          {
+            "internalType": "bool",
+            "name": "",
+            "type": "bool"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "newOwner",
+            "type": "address"
+          }
+        ],
+        "name": "transferOwnership",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      }
+    ],
+    "devdoc": {
+      "author": "Trader Joe",
+      "errors": {
+        "AccessControlBadConfirmation()": [
+          {
+            "details": "The caller of a function is not the expected one. NOTE: Don't confuse with {AccessControlUnauthorizedAccount}."
+          }
+        ],
+        "AccessControlUnauthorizedAccount(address,bytes32)": [
+          {
+            "details": "The `account` is missing a role."
+          }
+        ],
+        "EnumerableMapNonexistentKey(bytes32)": [
+          {
+            "details": "Query for a nonexistent map key."
+          }
+        ],
+        "OwnableInvalidOwner(address)": [
+          {
+            "details": "The owner is not a valid owner account. (eg. `address(0)`)"
+          }
+        ],
+        "OwnableUnauthorizedAccount(address)": [
+          {
+            "details": "The caller account is not authorized to perform an operation."
+          }
+        ]
+      },
+      "events": {
+        "RoleAdminChanged(bytes32,bytes32,bytes32)": {
+          "details": "Emitted when `newAdminRole` is set as ``role``'s admin role, replacing `previousAdminRole` `DEFAULT_ADMIN_ROLE` is the starting admin for all roles, despite {RoleAdminChanged} not being emitted signaling this."
+        },
+        "RoleGranted(bytes32,address,address)": {
+          "details": "Emitted when `account` is granted `role`. `sender` is the account that originated the contract call, an admin role bearer except when using {AccessControl-_setupRole}."
+        },
+        "RoleRevoked(bytes32,address,address)": {
+          "details": "Emitted when `account` is revoked `role`. `sender` is the account that originated the contract call:   - if using `revokeRole`, it is the admin role bearer   - if using `renounceRole`, it is the role bearer (i.e. `account`)"
+        }
+      },
+      "kind": "dev",
+      "methods": {
+        "acceptOwnership()": {
+          "details": "The new owner accepts the ownership transfer."
+        },
+        "constructor": {
+          "params": {
+            "feeRecipient": "The address of the fee recipient",
+            "flashLoanFee": "The value of the fee for flash loan"
+          }
+        },
+        "createLBPair(address,address,uint24,uint16)": {
+          "params": {
+            "activeId": "The active id of the pair",
+            "binStep": "The bin step in basis point, used to calculate log(1 + binStep / 10_000)",
+            "tokenX": "The address of the first token",
+            "tokenY": "The address of the second token"
+          },
+          "returns": {
+            "pair": "The address of the newly created LBPair"
+          }
+        },
+        "forceDecay(address)": {
+          "details": "Needs to be called by the owner",
+          "params": {
+            "pair": "The pair to force the decay"
+          }
+        },
+        "getAllBinSteps()": {
+          "returns": {
+            "binStepWithPreset": "The list of binStep"
+          }
+        },
+        "getAllLBPairs(address,address)": {
+          "params": {
+            "tokenX": "The first token of the pair",
+            "tokenY": "The second token of the pair"
+          },
+          "returns": {
+            "lbPairsAvailable": "The list of available LBPairs"
+          }
+        },
+        "getFeeRecipient()": {
+          "returns": {
+            "feeRecipient": "feeRecipient"
+          }
+        },
+        "getFlashLoanFee()": {
+          "returns": {
+            "flashLoanFee": "The fee for flash loans, in 1e18"
+          }
+        },
+        "getLBPairAtIndex(uint256)": {
+          "params": {
+            "index": "The index"
+          },
+          "returns": {
+            "lbPair": "The address of the LBPair at index `index`"
+          }
+        },
+        "getLBPairImplementation()": {
+          "returns": {
+            "lbPairImplementation": "The address of the LBPair implementation"
+          }
+        },
+        "getLBPairInformation(address,address,uint256)": {
+          "params": {
+            "binStep": "The bin step of the LBPair",
+            "tokenA": "The address of the first token of the pair",
+            "tokenB": "The address of the second token of the pair"
+          },
+          "returns": {
+            "lbPairInformation": "The LBPairInformation"
+          }
+        },
+        "getMaxFlashLoanFee()": {
+          "returns": {
+            "maxFee": "maxFee"
+          }
+        },
+        "getMinBinStep()": {
+          "returns": {
+            "minBinStep": "minBinStep"
+          }
+        },
+        "getNumberOfLBPairs()": {
+          "returns": {
+            "lbPairNumber": "lbPairNumber"
+          }
+        },
+        "getOpenBinSteps()": {
+          "returns": {
+            "openBinStep": "The list of open binSteps"
+          }
+        },
+        "getPreset(uint256)": {
+          "params": {
+            "binStep": "The bin step of the preset"
+          },
+          "returns": {
+            "baseFactor": "The base factor",
+            "decayPeriod": "The decay period of the preset",
+            "filterPeriod": "The filter period of the preset",
+            "isOpen": "Whether the preset is open or not",
+            "maxVolatilityAccumulator": "The max volatility accumulator of the preset",
+            "protocolShare": "The protocol share of the preset",
+            "reductionFactor": "The reduction factor of the preset",
+            "variableFeeControl": "The variable fee control of the preset"
+          }
+        },
+        "getRoleAdmin(bytes32)": {
+          "details": "Returns the admin role that controls `role`. See {grantRole} and {revokeRole}. To change a role's admin, use {_setRoleAdmin}."
+        },
+        "grantRole(bytes32,address)": {
+          "details": "Grants `role` to `account`. If `account` had not been already granted `role`, emits a {RoleGranted} event. Requirements: - the caller must have ``role``'s admin role. May emit a {RoleGranted} event."
+        },
+        "hasRole(bytes32,address)": {
+          "params": {
+            "account": "The address to check",
+            "role": "The role to check"
+          },
+          "returns": {
+            "_0": "Whether the account has the role or not"
+          }
+        },
+        "owner()": {
+          "details": "Returns the address of the current owner."
+        },
+        "pendingOwner()": {
+          "details": "Returns the address of the pending owner."
+        },
+        "removeLBHooksOnPair(address,address,uint16)": {
+          "details": "Needs to be called by an address with the LB_HOOKS_MANAGER_ROLE Reverts if: - The pair doesn't exist",
+          "params": {
+            "binStep": "The bin step in basis point, used to calculate the price",
+            "tokenX": "The address of the first token",
+            "tokenY": "The address of the second token"
+          }
+        },
+        "removePreset(uint16)": {
+          "details": "Needs to be called by the owner Reverts if: - The binStep doesn't have a preset",
+          "params": {
+            "binStep": "The bin step to remove"
+          }
+        },
+        "renounceOwnership()": {
+          "details": "Leaves the contract without owner. It will not be possible to call `onlyOwner` functions. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby disabling any functionality that is only available to the owner."
+        },
+        "renounceRole(bytes32,address)": {
+          "details": "Revokes `role` from the calling account. Roles are often managed via {grantRole} and {revokeRole}: this function's purpose is to provide a mechanism for accounts to lose their privileges if they are compromised (such as when a trusted device is misplaced). If the calling account had been revoked `role`, emits a {RoleRevoked} event. Requirements: - the caller must be `callerConfirmation`. May emit a {RoleRevoked} event."
+        },
+        "revokeRole(bytes32,address)": {
+          "details": "Revokes `role` from `account`. If `account` had been granted `role`, emits a {RoleRevoked} event. Requirements: - the caller must have ``role``'s admin role. May emit a {RoleRevoked} event."
+        },
+        "setFeeRecipient(address)": {
+          "details": "Needs to be called by the owner Reverts if: - The feeRecipient is `address(0)` - The feeRecipient is the same as the current one",
+          "params": {
+            "feeRecipient": "The address of the recipient"
+          }
+        },
+        "setFeesParametersOnPair(address,address,uint16,uint16,uint16,uint16,uint16,uint24,uint16,uint24)": {
+          "details": "Needs to be called by the owner Reverts if: - The pair doesn't exist",
+          "params": {
+            "baseFactor": "The base factor, used to calculate the base fee, baseFee = baseFactor * binStep",
+            "binStep": "The bin step in basis point, used to calculate the price",
+            "decayPeriod": "The period where the accumulator value is decayed, by the reduction factor",
+            "filterPeriod": "The period where the accumulator value is untouched, prevent spam",
+            "maxVolatilityAccumulator": "The max value of volatility accumulator",
+            "protocolShare": "The share of the fees received by the protocol",
+            "reductionFactor": "The reduction factor, used to calculate the reduction of the accumulator",
+            "tokenX": "The address of the first token",
+            "tokenY": "The address of the second token",
+            "variableFeeControl": "The variable fee control, used to control the variable fee, can be 0 to disable it"
+          }
+        },
+        "setFlashLoanFee(uint256)": {
+          "details": "Needs to be called by the owner Reverts if: - The flashLoanFee is the same as the current one - The flashLoanFee is above the maximum flash loan fee",
+          "params": {
+            "flashLoanFee": "The value of the fee for flash loan"
+          }
+        },
+        "setLBHooksParametersOnPair(address,address,uint16,bytes32,bytes)": {
+          "details": "Needs to be called by an address with the LB_HOOKS_MANAGER_ROLE Reverts if: - The pair doesn't exist - The hooks is `address(0)` or the hooks flags are all false",
+          "params": {
+            "binStep": "The bin step in basis point, used to calculate the price",
+            "hooksParameters": "The hooks parameters",
+            "onHooksSetData": "The data to pass to the onHooksSet function",
+            "tokenX": "The address of the first token",
+            "tokenY": "The address of the second token"
+          }
+        },
+        "setLBPairIgnored(address,address,uint16,bool)": {
+          "details": "Needs to be called by the owner Reverts if: - The pair doesn't exist - The ignored state is already in the same state",
+          "params": {
+            "binStep": "The bin step in basis point of the pair",
+            "ignored": "Whether to ignore (true) or not (false) the pair for routing",
+            "tokenX": "The address of the first token of the pair",
+            "tokenY": "The address of the second token of the pair"
+          }
+        },
+        "setLBPairImplementation(address)": {
+          "details": "Needs to be called by the owner",
+          "params": {
+            "newLBPairImplementation": "The address of the implementation"
+          }
+        },
+        "setPreset(uint16,uint16,uint16,uint16,uint16,uint24,uint16,uint24,bool)": {
+          "details": "Needs to be called by the owner Reverts if: - The binStep is lower than the minimum bin step",
+          "params": {
+            "baseFactor": "The base factor, used to calculate the base fee, baseFee = baseFactor * binStep",
+            "binStep": "The bin step in basis point, used to calculate the price",
+            "decayPeriod": "The period where the accumulator value is decayed, by the reduction factor",
+            "filterPeriod": "The period where the accumulator value is untouched, prevent spam",
+            "maxVolatilityAccumulator": "The max value of the volatility accumulator",
+            "protocolShare": "The share of the fees received by the protocol",
+            "reductionFactor": "The reduction factor, used to calculate the reduction of the accumulator",
+            "variableFeeControl": "The variable fee control, used to control the variable fee, can be 0 to disable it"
+          }
+        },
+        "setPresetOpenState(uint16,bool)": {
+          "details": "Needs to be called by the owner Reverts if: - The binStep doesn't have a preset - The preset is already in the same state",
+          "params": {
+            "binStep": "The bin step in basis point, used to calculate the price",
+            "isOpen": "Whether the preset is open or not"
+          }
+        },
+        "supportsInterface(bytes4)": {
+          "details": "See {IERC165-supportsInterface}."
+        },
+        "transferOwnership(address)": {
+          "details": "Starts the ownership transfer of the contract to a new account. Replaces the pending transfer if there is one. Can only be called by the current owner."
+        }
+      },
+      "stateVariables": {
+        "_availableLBPairBinSteps": {
+          "details": "Mapping from a (tokenA, tokenB) to a set of available bin steps, this is used to keep track of the bin steps that are already used for a pair. The tokens are ordered to save gas, but they can be in the reverse order in the actual pair. Always query one of the 2 tokens of the pair to assert the order of the 2 tokens"
+        },
+        "_lbPairsInfo": {
+          "details": "Mapping from a (tokenA, tokenB, binStep) to a LBPair. The tokens are ordered to save gas, but they can be in the reverse order in the actual pair. Always query one of the 2 tokens of the pair to assert the order of the 2 tokens"
+        }
+      },
+      "title": "Liquidity Book Factory",
+      "version": 1
+    },
+    "userdoc": {
+      "kind": "user",
+      "methods": {
+        "constructor": {
+          "notice": "Constructor"
+        },
+        "createLBPair(address,address,uint24,uint16)": {
+          "notice": "Create a liquidity bin LBPair for tokenX and tokenY"
+        },
+        "forceDecay(address)": {
+          "notice": "Function to force the decay of the volatility accumulator of a pair"
+        },
+        "getAllBinSteps()": {
+          "notice": "View function to return the list of available binStep with a preset"
+        },
+        "getAllLBPairs(address,address)": {
+          "notice": "View function to return all the LBPair of a pair of tokens"
+        },
+        "getFeeRecipient()": {
+          "notice": "Get the protocol fee recipient"
+        },
+        "getFlashLoanFee()": {
+          "notice": "Get the fee for flash loans, in 1e18"
+        },
+        "getLBPairAtIndex(uint256)": {
+          "notice": "View function to return the LBPair created at index `index`"
+        },
+        "getLBPairImplementation()": {
+          "notice": "Get the address of the LBPair implementation"
+        },
+        "getLBPairInformation(address,address,uint256)": {
+          "notice": "Returns the LBPairInformation if it exists, if not, then the address 0 is returned. The order doesn't matter"
+        },
+        "getMaxFlashLoanFee()": {
+          "notice": "Get the maximum fee percentage for flashLoans"
+        },
+        "getMinBinStep()": {
+          "notice": "Get the minimum bin step a pair can have"
+        },
+        "getNumberOfLBPairs()": {
+          "notice": "View function to return the number of LBPairs created"
+        },
+        "getOpenBinSteps()": {
+          "notice": "View function to return the list of open binSteps"
+        },
+        "getPreset(uint256)": {
+          "notice": "View function to return the different parameters of the preset Will revert if the preset doesn't exist"
+        },
+        "hasRole(bytes32,address)": {
+          "notice": "Returns whether the caller has the role or not, only the owner has the DEFAULT_ADMIN_ROLE"
+        },
+        "removeLBHooksOnPair(address,address,uint16)": {
+          "notice": "Function to remove the hooks contract from the pair"
+        },
+        "removePreset(uint16)": {
+          "notice": "Remove the preset linked to a binStep"
+        },
+        "setFeeRecipient(address)": {
+          "notice": "Function to set the recipient of the fees. This address needs to be able to receive ERC20s"
+        },
+        "setFeesParametersOnPair(address,address,uint16,uint16,uint16,uint16,uint16,uint24,uint16,uint24)": {
+          "notice": "Function to set the fee parameter of a LBPair"
+        },
+        "setFlashLoanFee(uint256)": {
+          "notice": "Function to set the flash loan fee"
+        },
+        "setLBHooksParametersOnPair(address,address,uint16,bytes32,bytes)": {
+          "notice": "Function to set the hooks parameters of a pair"
+        },
+        "setLBPairIgnored(address,address,uint16,bool)": {
+          "notice": "Function to set whether the pair is ignored or not for routing, it will make the pair unusable by the router"
+        },
+        "setLBPairImplementation(address)": {
+          "notice": "Set the LBPair implementation address"
+        },
+        "setPreset(uint16,uint16,uint16,uint16,uint16,uint24,uint16,uint24,bool)": {
+          "notice": "Sets the preset parameters of a bin step"
+        },
+        "setPresetOpenState(uint16,bool)": {
+          "notice": "Sets if the preset is open or not to be used by users"
+        }
+      },
+      "notice": "Contract used to deploy and register new LBPairs. Enables setting fee parameters, flashloan fees and LBPair implementation. Unless the `isOpen` is `true`, only the owner of the factory can create pairs.",
+      "version": 1
+    }
+  },
+  "settings": {
+    "compilationTarget": {
+      "contracts/joe-v2/src/LBFactory.sol": "LBFactory"
+    },
+    "evmVersion": "paris",
+    "libraries": {},
+    "metadata": {
+      "bytecodeHash": "ipfs"
+    },
+    "optimizer": {
+      "enabled": true,
+      "runs": 800
+    },
+    "remappings": []
+  },
+  "sources": {
+    "contracts/joe-v2/lib/openzeppelin-contracts/contracts/access/AccessControl.sol": {
+      "keccak256": "0xa0e92d42942f4f57c5be50568dac11e9d00c93efcb458026e18d2d9b9b2e7308",
+      "license": "MIT",
+      "urls": [
+        "bzz-raw://46326c0bb1e296b67185e81c918e0b40501b8b6386165855df0a3f3c634b6a80",
+        "dweb:/ipfs/QmTwyrDYtsxsk6pymJTK94PnEpzsmkpUxFuzEiakDopy4Z"
+      ]
+    },
+    "contracts/joe-v2/lib/openzeppelin-contracts/contracts/access/IAccessControl.sol": {
+      "keccak256": "0x65ca47513b279410048d29579aa4b32d8a7faf4ee8264f22ae4ac51117e733d9",
+      "license": "MIT",
+      "urls": [
+        "bzz-raw://c9a84d41cb877bf31c3db9a3dd917d5d94509834604722e7b972b112e4af705f",
+        "dweb:/ipfs/QmYEZBWxWDkdbqqDTUmDpCD7txYMuS2ykcrCH3D5HAJ1J1"
+      ]
+    },
+    "contracts/joe-v2/lib/openzeppelin-contracts/contracts/access/Ownable.sol": {
+      "keccak256": "0xff6d0bb2e285473e5311d9d3caacb525ae3538a80758c10649a4d61029b017bb",
+      "license": "MIT",
+      "urls": [
+        "bzz-raw://8ed324d3920bb545059d66ab97d43e43ee85fd3bd52e03e401f020afb0b120f6",
+        "dweb:/ipfs/QmfEckWLmZkDDcoWrkEvMWhms66xwTLff9DDhegYpvHo1a"
+      ]
+    },
+    "contracts/joe-v2/lib/openzeppelin-contracts/contracts/access/Ownable2Step.sol": {
+      "keccak256": "0x08b074ae1b12e70ce24d1335086ec5a418934311a6771d9f61fe24d392050e12",
+      "license": "MIT",
+      "urls": [
+        "bzz-raw://e2fd900a8f8244fc0a49bae1ca1bd5815884f248a2306b8e7dc68011c25803b7",
+        "dweb:/ipfs/Qmd4EaujSR74x7EqziRDfqgc6Tv2nzRQDSaxKXcU1ybxbA"
+      ]
+    },
+    "contracts/joe-v2/lib/openzeppelin-contracts/contracts/token/ERC20/IERC20.sol": {
+      "keccak256": "0xee2337af2dc162a973b4be6d3f7c16f06298259e0af48c5470d2839bfa8a22f4",
+      "license": "MIT",
+      "urls": [
+        "bzz-raw://30c476b4b2f405c1bb3f0bae15b006d129c80f1bfd9d0f2038160a3bb9745009",
+        "dweb:/ipfs/Qmb3VcuDufv6xbHeVgksC4tHpc5gKYVqBEwjEXW72XzSvN"
+      ]
+    },
+    "contracts/joe-v2/lib/openzeppelin-contracts/contracts/utils/Context.sol": {
+      "keccak256": "0x493033a8d1b176a037b2cc6a04dad01a5c157722049bbecf632ca876224dd4b2",
+      "license": "MIT",
+      "urls": [
+        "bzz-raw://6a708e8a5bdb1011c2c381c9a5cfd8a9a956d7d0a9dc1bd8bcdaf52f76ef2f12",
+        "dweb:/ipfs/Qmax9WHBnVsZP46ZxEMNRQpLQnrdE4dK8LehML1Py8FowF"
+      ]
+    },
+    "contracts/joe-v2/lib/openzeppelin-contracts/contracts/utils/introspection/ERC165.sol": {
+      "keccak256": "0x6fac27fb1885a1d9fd2ce3f8fac4e44a6596ca4d44207c9ef2541ba8c941291e",
+      "license": "MIT",
+      "urls": [
+        "bzz-raw://2079378abdb36baec15c23bc2353b73a3d28d1d0610b436b0c1c4e6fa61d65c9",
+        "dweb:/ipfs/QmVZkRFMzKW7sLaugKSTbMNnUBKWF3QDsoMi5uoQFyVMjf"
+      ]
+    },
+    "contracts/joe-v2/lib/openzeppelin-contracts/contracts/utils/introspection/IERC165.sol": {
+      "keccak256": "0xc859863e3bda7ec3cddf6dafe2ffe91bcbe648d1395b856b839c32ee9617c44c",
+      "license": "MIT",
+      "urls": [
+        "bzz-raw://a9d5417888b873cf2225ed5d50b2a67be97c1504134a2a580512168d587ad82e",
+        "dweb:/ipfs/QmNr5fTb2heFW658NZn7dDnofZgFvQTnNxKRJ3wdnR1skX"
+      ]
+    },
+    "contracts/joe-v2/lib/openzeppelin-contracts/contracts/utils/structs/EnumerableMap.sol": {
+      "keccak256": "0xd54305a00b75f1d580747bc916257a6a53d5c0c699d65f947988ef9c1d95a2b5",
+      "license": "MIT",
+      "urls": [
+        "bzz-raw://e687cd2e6ce64ed9829557eef8b542dd5ef3829ecd1b00a07ff5bfd7dc0c59c4",
+        "dweb:/ipfs/QmaX3mE3HbH5cUbyj9RszWEXsjjMJ6LtuovebEYhxjUMvw"
+      ]
+    },
+    "contracts/joe-v2/lib/openzeppelin-contracts/contracts/utils/structs/EnumerableSet.sol": {
+      "keccak256": "0x86c1470cbfd878491e5de030072b647352d36bd27122cffb928970b1945282aa",
+      "license": "MIT",
+      "urls": [
+        "bzz-raw://ad85dd393ee0a1917c57046abc5155f51f77844b2c6a42c05c1b8dd26d6ff3c1",
+        "dweb:/ipfs/QmNqYc8To2NdnpP6E1tGz7t6A7beuENde5yovwov5pW1fA"
+      ]
+    },
+    "contracts/joe-v2/src/LBFactory.sol": {
+      "keccak256": "0x2efa18359d5aa34456a80452c9ea46360f7cf45bbae60b15ca835b59c45561f8",
+      "license": "MIT",
+      "urls": [
+        "bzz-raw://9aa1f00103f8023728671c5da6a9c8a3e7f0d4ebe7b67588205d9d7818904b58",
+        "dweb:/ipfs/QmTr2zrs67bPBgRjyTvGzwpCQ7tbb3m9Jhc9k88gAStFcX"
+      ]
+    },
+    "contracts/joe-v2/src/interfaces/ILBFactory.sol": {
+      "keccak256": "0xfc815a05b28165166b4e06c9c025e35807d5e0f6a406b96ec7ebe176dedf8d95",
+      "license": "MIT",
+      "urls": [
+        "bzz-raw://3542a541bec579d39f1e9dbb0f45d3f70ce3ebf45c74449b36ebdd697e06f6b3",
+        "dweb:/ipfs/QmUPbvYBpVPwW9Xb9UBukrBzuQirTSv6rwaurVrgV1CLSt"
+      ]
+    },
+    "contracts/joe-v2/src/interfaces/ILBFlashLoanCallback.sol": {
+      "keccak256": "0x14e08d6774de7f9a6b0b008e4a2132e28ac5d9e0ed9327c2d305ccd4a8e500d8",
+      "license": "MIT",
+      "urls": [
+        "bzz-raw://316063733817a0d300b2f3c6cdd598be35745343646601dd370c1037e851bd88",
+        "dweb:/ipfs/QmRV3tNsZ4VcyNWiBphDbWM8bxV41sstKkgziuYyGphnE7"
+      ]
+    },
+    "contracts/joe-v2/src/interfaces/ILBHooks.sol": {
+      "keccak256": "0xad32a000f052e48266932bc3eb9818de0a80b77235ae5d44d9a5286264992f1a",
+      "license": "MIT",
+      "urls": [
+        "bzz-raw://044044be7373a509f946ede2ee05580f55438ce317e3c538a888208f18f39109",
+        "dweb:/ipfs/QmWK93hkd91t7LQRnVN1QZXUniCLh5HifXrww5BhRxaD9n"
+      ]
+    },
+    "contracts/joe-v2/src/interfaces/ILBPair.sol": {
+      "keccak256": "0x9c2afceaceaa81e316e09122d89f6ae4310353877178a1cae4a36756f26e3ee1",
+      "license": "MIT",
+      "urls": [
+        "bzz-raw://fa6917af5b29e67f5496b1043abba27f4af41481df094ec69aba36331c4229ce",
+        "dweb:/ipfs/QmP84Q4P5dNw18FDhg4xXPbHXgNxggRicmJmAPNpkTxUjo"
+      ]
+    },
+    "contracts/joe-v2/src/interfaces/ILBToken.sol": {
+      "keccak256": "0x6ec82e130bfcee455420f5b6025dd9f6237654c5d081b1a929de1c4ac942387a",
+      "license": "MIT",
+      "urls": [
+        "bzz-raw://ba0a398ffeea4227ce9eee3a76c97a47a8ac39ac2b85cda60bc24a93c5c7386a",
+        "dweb:/ipfs/QmP1oUtTGG6PWu1n9T7n38iQVKMsDavhA9kCyLSjWTEgLt"
+      ]
+    },
+    "contracts/joe-v2/src/libraries/Constants.sol": {
+      "keccak256": "0xeb531944284c1a12410b47605869a65f7a3d6f97e24e9dff5a9b8972e9dd6e5a",
+      "license": "MIT",
+      "urls": [
+        "bzz-raw://4840c7e6de5c27bd9c46bed582bdaa9e7de4b9d3e9441a4b7b0de40f6ae1e7ca",
+        "dweb:/ipfs/QmNZnqNc2MayvLR3VsmPZ3tzhkFkPgD3J7tKLwWr6mzFxM"
+      ]
+    },
+    "contracts/joe-v2/src/libraries/Hooks.sol": {
+      "keccak256": "0xa68b3308bf297c2cd03f2e4f28a6a5e0e68c415d617672bf356aadff56c53959",
+      "license": "MIT",
+      "urls": [
+        "bzz-raw://b9a6b20fd8aeefacb64dbf3b463b0c10cb8848fd61f4f3344ed53731ffaf686a",
+        "dweb:/ipfs/QmRvcBNazvsKvfDXQtdQj3GczaNLbFcqVYdcJCoRA6MDop"
+      ]
+    },
+    "contracts/joe-v2/src/libraries/ImmutableClone.sol": {
+      "keccak256": "0x128845623787e6d43d1827defe114499d8c917fd3fea8f1a783ae42174076ddc",
+      "license": "MIT",
+      "urls": [
+        "bzz-raw://1f653b932ebff34f5c39f8536e80da6a4f5778285210c2602a8f9766faf3d7fc",
+        "dweb:/ipfs/Qmc8hSHLbyx7dvwpd9aHCRp9GFqYH3kWqyXzRC7kFoDrAj"
+      ]
+    },
+    "contracts/joe-v2/src/libraries/PairParameterHelper.sol": {
+      "keccak256": "0x53163f663dad415ede2e5f0705700268445eb0586070fb253ff65f9afbcc1a8b",
+      "license": "MIT",
+      "urls": [
+        "bzz-raw://4f07672f538f7b0a4b826379f988d5cd17c93eab371b8dee597a2228f2c1533d",
+        "dweb:/ipfs/Qmaq2AUCiRzrqnWPVE7TH62ZTUcYJ4cXSGGRQV4q8ASELZ"
+      ]
+    },
+    "contracts/joe-v2/src/libraries/PriceHelper.sol": {
+      "keccak256": "0xe660c07d0812609a65bcdccc1d7212116e8075c3a86cf9b15ead3639b0f9fdb7",
+      "license": "MIT",
+      "urls": [
+        "bzz-raw://61c85e1bc1107f22b13c3c5e43fdda89eb6ed3f9ab9df123e18914b24f3ff054",
+        "dweb:/ipfs/QmUewajrhnmLPJ7qgDmXb4FZbNJdtArxGu5eQca8Mo1YTb"
+      ]
+    },
+    "contracts/joe-v2/src/libraries/math/BitMath.sol": {
+      "keccak256": "0x7b359776521706ae1291cbf8707919aaa5cb78d59b9dfbe5393322c393250b1f",
+      "license": "MIT",
+      "urls": [
+        "bzz-raw://bb9fe4accf6abda06f8b4ba02f86d37df109e4b8d14b78a848eb4b4cee359485",
+        "dweb:/ipfs/QmSTkrek6fhvgiato8tC6ARz4M11Ynqgyuy7d2QeGiWXEG"
+      ]
+    },
+    "contracts/joe-v2/src/libraries/math/Encoded.sol": {
+      "keccak256": "0xd7caeb3b8c48ac9015c89a5fc6e6387a421359c0d773b6cd276baa17eb8c4c3f",
+      "license": "MIT",
+      "urls": [
+        "bzz-raw://100c723b4e0739a2fcb9e6f429c0db1583392a92bb8e85af41f1e1b3f632ab50",
+        "dweb:/ipfs/QmSCWAoZfo8hS4ZUUcohahc93pMLSUXFHLfkpLq7QBkPBz"
+      ]
+    },
+    "contracts/joe-v2/src/libraries/math/SafeCast.sol": {
+      "keccak256": "0x3e22926e8f7d352568f01a896860c83b3ab35b47a0ed9a0f2e780a82aa52f4a8",
+      "license": "MIT",
+      "urls": [
+        "bzz-raw://3fc2ade1520197ab28ad6292a1d70d3182b9741030ad69c8a915b4c09ebec1f5",
+        "dweb:/ipfs/QmYRtP5AiMXCpiBPrmuWd2R1mYGyuXoa24GeZJRUBSS7wH"
+      ]
+    },
+    "contracts/joe-v2/src/libraries/math/Uint128x128Math.sol": {
+      "keccak256": "0xe84206e2561ef32aef2d23ce5022f0174898a26d4d60346675e7a7fd76054fc0",
+      "license": "MIT",
+      "urls": [
+        "bzz-raw://4238023aeb54caf0d245b00063b37a736142413d3040a175b8d5765ee148242d",
+        "dweb:/ipfs/QmSqvRJAxtCLjkp19rW8jxzvocr6e478u2Ge5iLyJojJXF"
+      ]
+    },
+    "contracts/joe-v2/src/libraries/math/Uint256x256Math.sol": {
+      "keccak256": "0xa85a6d3be7cdf95ec9b246d36c3843de738af3df11fcc2bf8bf6e15c350870d6",
+      "license": "MIT",
+      "urls": [
+        "bzz-raw://ffa97dbe1dc755a243a81a2590e3f25e5399549351a941c2835cca190a0a3fa0",
+        "dweb:/ipfs/QmbKUhSjHj1Y48dCPfiYSLybQ8miYfQ99EWsWdP8orpeaB"
+      ]
+    }
+  },
+  "version": 1
+}

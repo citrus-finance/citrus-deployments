@@ -6,13 +6,21 @@ export interface DeterministicContractDeployment {
   name: string;
   bytecode: Hex;
   constructorArgs: Hex;
+  children?: {
+    name: string;
+    constructorArgs: (Hex | "wnative" | keyof ArtifactsMap)[];
+  }[];
 }
 
-interface DynamicContractDeployment {
+export interface DynamicContractDeployment {
   type: "dynamic-deployment";
   name: string;
   bytecode: Hex;
   constructorArgs: (Hex | "wnative" | keyof ArtifactsMap)[];
+  children?: {
+    name: string;
+    constructorArgs: (Hex | "wnative" | keyof ArtifactsMap)[];
+  }[];
 }
 
 interface ContractCall {

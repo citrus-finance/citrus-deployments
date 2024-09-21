@@ -1,6 +1,10 @@
 import { readFile } from "fs/promises";
 import { HardhatRuntimeEnvironment, TaskArguments } from "hardhat/types";
-import { Call, DeterministicContractDeployment } from "../types/Call";
+import {
+  Call,
+  DeterministicContractDeployment,
+  DynamicContractDeployment,
+} from "../types/Call";
 import {
   getCreate2Address,
   slice,
@@ -12,6 +16,8 @@ import {
   Transport,
   Chain,
   Account,
+  getAddress,
+  getCreateAddress,
 } from "viem";
 import pRetry from "p-retry";
 import { mapValues } from "lodash";
@@ -101,25 +107,7 @@ class CitrusDeployer {
       if (call.type === "deterministic-deployment") {
         await this.deployContract(call);
       } else if (call.type === "dynamic-deployment") {
-        const constructorArgs = concat(
-          call.constructorArgs.map((p) => {
-            if (isHex(p)) {
-              return p;
-            }
-
-            if (p === "wnative") {
-              return wNative;
-            }
-
-            if (contractAddressMap[p]) {
-              return contractAddressMap[p];
-            }
-
-            throw new Error(
-              `Could not replace ${p} in dynamic contract deployment for ${call.name}`,
-            );
-          }),
-        );
+        const constructorArgs = getConstructorArgs(call.constructorArgs);
 
         await this.deployContract({
           name: call.name,
@@ -185,6 +173,20 @@ class CitrusDeployer {
       address: contractAddress,
     });
 
+    if (call.children) {
+      for (let i = 0; i < call.children.length; i++) {
+        const childAddress = getCreateAddress({
+          from: contractAddress,
+          nonce: BigInt(i) + 1n,
+        });
+
+        contractAddressMap[call.children[i].name] = childAddress;
+        console.log(
+          `${call.children[i].name} is deployed by ${call.name} at ${childAddress}`,
+        );
+      }
+    }
+
     if (code) {
       console.log(`${call.name} is already deployed at ${contractAddress}`);
       return;
@@ -215,18 +217,34 @@ class CitrusDeployer {
 
     console.log(`Deployed ${call.name} to ${contractAddress}`);
 
-    await this.verifyContract(call, contractAddress);
+    await this.verifyContract(call.name, call.constructorArgs, contractAddress);
+
+    if (call.children) {
+      for (let i = 0; i < call.children.length; i++) {
+        const childAddress = getCreateAddress({
+          from: contractAddress,
+          nonce: BigInt(i) + 1n,
+        });
+
+        await this.verifyContract(
+          call.children[i].name,
+          getConstructorArgs(call.children[i].constructorArgs),
+          childAddress,
+        );
+      }
+    }
   }
 
   private async verifyContract(
-    call: Omit<DeterministicContractDeployment, "type">,
+    contractName: string,
+    constructorArgs: Hex,
     contractAddress: string,
   ) {
     const metadata = await this.fetchFile<any>(
-      `public/metadata/${call.name}.json`,
+      `public/metadata/${contractName}.json`,
     );
     const input = await this.fetchFile<any>(
-      `public/solidity-standard-json-input/${call.name}.json`,
+      `public/solidity-standard-json-input/${contractName}.json`,
     );
 
     if (metadata === null || input === null) {
@@ -252,7 +270,7 @@ class CitrusDeployer {
     });
 
     console.log(
-      `Sourcify verification result for ${call.name}`,
+      `Sourcify verification result for ${contractName}`,
       await sourcifyResponse.json(),
     );
 
@@ -266,9 +284,9 @@ class CitrusDeployer {
           contractaddress: contractAddress,
           sourceCode: JSON.stringify(input),
           codeformat: "solidity-standard-json-input",
-          contractname: `${Object.keys(metadata.settings.compilationTarget)[0]}:${call.name}`,
+          contractname: `${Object.keys(metadata.settings.compilationTarget)[0]}:${contractName}`,
           compilerversion: `v${metadata.compiler.version}`,
-          constructorArguements: call.constructorArgs.slice(2),
+          constructorArguements: constructorArgs.slice(2),
           // TODO: check if chain is supported
           chainId: this.publicClient.chain.id.toString(),
         }).toString(),
@@ -278,9 +296,31 @@ class CitrusDeployer {
       });
 
       console.log(
-        `Etherscan verification result for ${call.name}`,
+        `Etherscan verification result for ${contractName}`,
         await etherscanResponse.json(),
       );
     }
   }
+}
+
+function getConstructorArgs(
+  constructorArgs: DynamicContractDeployment["constructorArgs"],
+): Hex {
+  return concat(
+    constructorArgs.map((p) => {
+      if (isHex(p)) {
+        return p;
+      }
+
+      if (p === "wnative") {
+        return wNative;
+      }
+
+      if (contractAddressMap[p]) {
+        return contractAddressMap[p];
+      }
+
+      throw new Error(`Could not replace ${p} in dynamic contract deployment`);
+    }),
+  );
 }

@@ -25,7 +25,11 @@ import {
   toHex,
   zeroAddress,
 } from "viem";
-import { Call } from "../types/Call";
+import {
+  Call,
+  DeterministicContractDeployment,
+  DynamicContractDeployment,
+} from "../types/Call";
 
 import SafeProxyFactoryABI from "../abis/SafeProxyFactory.json";
 import SafeABI from "../abis/Safe.json";
@@ -99,6 +103,9 @@ export default async function planTask(
     args: [safeSingleton, safeSetupCalldata, 0],
   });
 
+  // 0.0005 %
+  const flashLoanFee = 5000000000000n;
+
   const presets = [
     [
       // 0.01% bin step
@@ -137,7 +144,7 @@ export default async function planTask(
     [
       safe,
       safe,
-      5000000000000n, // 0.0005 %
+      flashLoanFee,
       binSteps,
       baseFactors,
       filterPeriods,
@@ -147,6 +154,18 @@ export default async function planTask(
       protocolShares,
       maxVolatilityAccumulators,
     ],
+    {
+      children: [
+        {
+          name: "LBFactory",
+          args: [safe, "LBDeployer", flashLoanFee],
+        },
+        {
+          name: "LBPair",
+          args: ["LBFactory"],
+        },
+      ],
+    },
   );
 
   const lbV2FactoryAddress = getCreateAddress({
@@ -191,10 +210,20 @@ async function plan(call: Call) {
   calls[callIndex++] = call;
 }
 
+interface ContractChild<C extends keyof ArtifactsMap> {
+  name: C;
+  args: TransformDynamicArgs<
+    EncodeDeployDataParameters<ArtifactsMap[C]["abi"]>["args"]
+  >;
+}
+
 async function planDeterministicDeployment<C extends keyof ArtifactsMap>(
   hre: HardhatRuntimeEnvironment,
   contractName: C,
   args: EncodeDeployDataParameters<ArtifactsMap[C]["abi"]>["args"],
+  { children }: { children: ContractChild<keyof ArtifactsMap>[] } = {
+    children: [],
+  },
 ): Promise<Hex> {
   const artifact = await hre.artifacts.readArtifact(contractName);
 
@@ -213,18 +242,54 @@ async function planDeterministicDeployment<C extends keyof ArtifactsMap>(
   // @ts-ignore
   const constructorArgs = getContructorArgs(artifact.abi, args);
 
-  calls[callIndex++] = {
+  const contractNames = await getAllContracts(hre);
+
+  const call: DeterministicContractDeployment = {
     type: "deterministic-deployment",
     name: contractName,
     bytecode,
     constructorArgs,
   };
 
+  if (children.length !== 0) {
+    call.children = await Promise.all(
+      children.map(async (child) => {
+        const artifact = await hre.artifacts.readArtifact(child.name);
+
+        const constructorArgs = getDynamicContructorArgs(
+          contractNames,
+          artifact.abi,
+          child.args,
+        );
+
+        await writeContractFile(hre, child.name);
+
+        return {
+          name: child.name,
+          constructorArgs,
+        };
+      }),
+    );
+  }
+
+  calls[callIndex++] = call;
+
   const contractAddress = getCreate2Address({
     from: create2Contract,
     bytecode: deployData,
     salt,
   });
+
+  await writeContractFile(hre, contractName);
+
+  return contractAddress;
+}
+
+async function writeContractFile(
+  hre: HardhatRuntimeEnvironment,
+  contractName: string,
+) {
+  const artifact = await hre.artifacts.readArtifact(contractName);
 
   const buildInfo = await hre.artifacts.getBuildInfo(
     `${artifact.sourceName}:${artifact.contractName}`,
@@ -233,8 +298,8 @@ async function planDeterministicDeployment<C extends keyof ArtifactsMap>(
   await writeFile(
     `public/metadata/${artifact.contractName}.json`,
     JSON.stringify(
-      // @ts-ignore
       JSON.parse(
+        // @ts-ignore
         buildInfo?.output.contracts[artifact.sourceName][artifact.contractName]
           .metadata,
       ),
@@ -247,8 +312,38 @@ async function planDeterministicDeployment<C extends keyof ArtifactsMap>(
     `public/solidity-standard-json-input/${artifact.contractName}.json`,
     JSON.stringify(buildInfo!.input, null, 2),
   );
+}
 
-  return contractAddress;
+async function getAllContracts(
+  hre: HardhatRuntimeEnvironment,
+): Promise<string[]> {
+  return (await hre.artifacts.getAllFullyQualifiedNames()).map(
+    (x) => x.split(":")[1],
+  );
+}
+
+function getDynamicContructorArgs(
+  contractNames: string[],
+  abi: any,
+  args?: any[],
+): (Hex | "wnative" | keyof ArtifactsMap)[] {
+  const placeholderMap: Record<string, Hex> = {};
+
+  const transformedArgs = args?.map((x) => {
+    const placeholder = toHex(Math.random().toString()).padEnd(42, "0") as Hex;
+
+    if (x === "wnative" || contractNames.includes(x)) {
+      placeholderMap[x] = placeholder;
+      return placeholder;
+    }
+
+    return x;
+  });
+
+  return transformBytecode(
+    getContructorArgs(abi, transformedArgs),
+    placeholderMap,
+  );
 }
 
 function getContructorArgs(abi: any, args?: any[]): Hex {
@@ -287,39 +382,49 @@ async function planDynamicDeployment<C extends keyof ArtifactsMap>(
   args: TransformDynamicArgs<
     EncodeDeployDataParameters<ArtifactsMap[C]["abi"]>["args"]
   >,
+  { children }: { children: ContractChild<keyof ArtifactsMap>[] } = {
+    children: [],
+  },
 ): Promise<void> {
   const artifact = await hre.artifacts.readArtifact(contractName);
 
-  const placeholderMap: Record<string, Hex> = {};
-
-  const contractNames = (await hre.artifacts.getAllFullyQualifiedNames()).map(
-    (x) => x.split(":")[1],
-  );
-
-  const transformedArgs = args?.map((x) => {
-    const placeholder = toHex(Math.random().toString()).padEnd(42, "0") as Hex;
-
-    if (x === "wnative" || contractNames.includes(x)) {
-      placeholderMap[x] = placeholder;
-      return placeholder;
-    }
-
-    return x;
-  });
+  const contractNames = await getAllContracts(hre);
 
   const salt = pad(toBytes("citrus-finance"), {
     size: 32,
   });
 
-  calls[callIndex++] = {
+  const call: DynamicContractDeployment = {
     type: "dynamic-deployment",
     name: contractName,
     bytecode: concat([toHex(salt), artifact.bytecode]),
-    constructorArgs: transformBytecode(
-      getContructorArgs(artifact.abi, transformedArgs),
-      placeholderMap,
+    constructorArgs: getDynamicContructorArgs(
+      contractNames,
+      artifact.abi,
+      args,
     ),
   };
+
+  if (children.length !== 0) {
+    call.children = await Promise.all(
+      children.map(async (child) => {
+        const artifact = await hre.artifacts.readArtifact(child.name);
+
+        const constructorArgs = getDynamicContructorArgs(
+          contractNames,
+          artifact.abi,
+          child.args,
+        );
+
+        return {
+          name: child.name,
+          constructorArgs,
+        };
+      }),
+    );
+  }
+
+  calls[callIndex++] = call;
 }
 
 async function planCall<
