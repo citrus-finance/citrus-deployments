@@ -1,16 +1,18 @@
 import { ArtifactsMap } from "hardhat/types";
 import { Hex } from "viem";
 
-interface DeterministicContractDeployment {
+export interface DeterministicContractDeployment {
   type: "deterministic-deployment";
   name: string;
   bytecode: Hex;
+  constructorArgs: Hex;
 }
 
 interface DynamicContractDeployment {
   type: "dynamic-deployment";
   name: string;
-  bytecodeParts: (Hex | "wnative" | keyof ArtifactsMap)[];
+  bytecode: Hex;
+  constructorArgs: (Hex | "wnative" | keyof ArtifactsMap)[];
 }
 
 interface ContractCall {

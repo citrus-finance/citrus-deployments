@@ -1,0 +1,289 @@
+{
+  "compiler": {
+    "version": "0.8.20+commit.a1b79de6"
+  },
+  "language": "Solidity",
+  "output": {
+    "abi": [
+      {
+        "inputs": [],
+        "name": "ExecutionFailed",
+        "type": "error"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "contract ISafe",
+            "name": "safe",
+            "type": "address"
+          }
+        ],
+        "name": "domainSeparator",
+        "outputs": [
+          {
+            "internalType": "bytes32",
+            "name": "",
+            "type": "bytes32"
+          }
+        ],
+        "stateMutability": "pure",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "contract ISafe",
+            "name": "safe",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "to",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "value",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bytes",
+            "name": "data",
+            "type": "bytes"
+          },
+          {
+            "internalType": "uint8",
+            "name": "operation",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint256",
+            "name": "_nonce",
+            "type": "uint256"
+          }
+        ],
+        "name": "encodeTransactionData",
+        "outputs": [
+          {
+            "internalType": "bytes",
+            "name": "",
+            "type": "bytes"
+          }
+        ],
+        "stateMutability": "pure",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "contract ISafe",
+            "name": "safe",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "to",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "value",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bytes",
+            "name": "data",
+            "type": "bytes"
+          },
+          {
+            "internalType": "uint8",
+            "name": "operation",
+            "type": "uint8"
+          },
+          {
+            "internalType": "bytes",
+            "name": "signatures",
+            "type": "bytes"
+          }
+        ],
+        "name": "execTransaction",
+        "outputs": [
+          {
+            "internalType": "bool",
+            "name": "success",
+            "type": "bool"
+          }
+        ],
+        "stateMutability": "payable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "contract ISafe",
+            "name": "safe",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "to",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "value",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bytes",
+            "name": "data",
+            "type": "bytes"
+          },
+          {
+            "internalType": "uint8",
+            "name": "operation",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint256",
+            "name": "_nonce",
+            "type": "uint256"
+          }
+        ],
+        "name": "getTransactionHash",
+        "outputs": [
+          {
+            "internalType": "bytes32",
+            "name": "",
+            "type": "bytes32"
+          }
+        ],
+        "stateMutability": "pure",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "contract ISafe",
+            "name": "",
+            "type": "address"
+          }
+        ],
+        "name": "nonces",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      }
+    ],
+    "devdoc": {
+      "kind": "dev",
+      "methods": {
+        "domainSeparator(address)": {
+          "details": "Returns the domain separator for the safe contract, as defined in the EIP-712 standard.",
+          "params": {
+            "safe": "The safe the transaction will be executed on"
+          },
+          "returns": {
+            "_0": "bytes32 The domain separator hash."
+          }
+        },
+        "encodeTransactionData(address,address,uint256,bytes,uint8,uint256)": {
+          "params": {
+            "_nonce": "Transaction nonce.",
+            "data": "Data payload.",
+            "operation": "Operation type.",
+            "safe": "The safe the transaction will be executed on",
+            "to": "Destination address.",
+            "value": "Ether value."
+          },
+          "returns": {
+            "_0": "Transaction hash bytes."
+          }
+        },
+        "execTransaction(address,address,uint256,bytes,uint8,bytes)": {
+          "details": "This method doesn't perform any sanity check of the transaction, such as:      - if the contract at `to` address has code or not      It is the responsibility of the caller to perform such checks.",
+          "params": {
+            "data": "Data payload of Safe transaction.",
+            "operation": "Operation type of Safe transaction.",
+            "safe": "The safe the transaction will be executed on",
+            "signatures": "Signature data that should be verified.                   Can be packed ECDSA signature ({bytes32 r}{bytes32 s}{uint8 v}), contract signature (EIP-1271) or approved hash.",
+            "to": "Destination address of Safe transaction.",
+            "value": "Ether value of Safe transaction."
+          },
+          "returns": {
+            "success": "Boolean indicating transaction's success."
+          }
+        },
+        "getTransactionHash(address,address,uint256,bytes,uint8,uint256)": {
+          "params": {
+            "_nonce": "Transaction nonce.",
+            "data": "Data payload.",
+            "operation": "Operation type.",
+            "safe": "The safe the transaction will be executed on",
+            "to": "Destination address.",
+            "value": "Ether value."
+          },
+          "returns": {
+            "_0": "Transaction hash."
+          }
+        }
+      },
+      "version": 1
+    },
+    "userdoc": {
+      "kind": "user",
+      "methods": {
+        "encodeTransactionData(address,address,uint256,bytes,uint8,uint256)": {
+          "notice": "Returns the pre-image of the transaction hash (see getTransactionHash)."
+        },
+        "execTransaction(address,address,uint256,bytes,uint8,bytes)": {
+          "notice": "Executes a `operation` {0: Call, 1: DelegateCall}} transaction to `to` with `value` (Native Currency)"
+        },
+        "getTransactionHash(address,address,uint256,bytes,uint8,uint256)": {
+          "notice": "Returns transaction hash to be signed by owners."
+        }
+      },
+      "version": 1
+    }
+  },
+  "settings": {
+    "compilationTarget": {
+      "contracts/citrus-safe-modules/src/GlobalModule.sol": "GlobalModule"
+    },
+    "evmVersion": "paris",
+    "libraries": {},
+    "metadata": {
+      "bytecodeHash": "ipfs"
+    },
+    "optimizer": {
+      "enabled": true,
+      "runs": 800
+    },
+    "remappings": []
+  },
+  "sources": {
+    "contracts/citrus-safe-modules/src/GlobalModule.sol": {
+      "keccak256": "0xef1e7e48848f51bb9241745fc40416eb88bf61681ad566a5d379923c2fa2ab47",
+      "license": "LGPL-3.0-only",
+      "urls": [
+        "bzz-raw://47fe499d8cda30879b6e5c2a2061fef8c9a720d2bd0b47b913ae5086b9922d35",
+        "dweb:/ipfs/QmfGkZaNCcp7Qdr4fT3XXsd9Cwj1ig53t3bAc1h1NL6yK6"
+      ]
+    },
+    "contracts/citrus-safe-modules/src/interfaces/ISafe.sol": {
+      "keccak256": "0xedd6fa8dbfccf790d9116e7445364803f236e25fc738476ecaedd421facfece5",
+      "license": "LGPL-3.0-only",
+      "urls": [
+        "bzz-raw://319f63d001e9e02f3892b618629e6566bb10ac04426fa3dfc633f1864113f119",
+        "dweb:/ipfs/QmRkRjfPbtYPkduc9phNZnXGEEhdWgHPLTxwH4ZHEPja7M"
+      ]
+    }
+  },
+  "version": 1
+}
