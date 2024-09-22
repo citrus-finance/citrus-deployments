@@ -68,11 +68,11 @@
       ]
     },
     "contracts/citrus-safe-modules/src/interfaces/ISafe.sol": {
-      "keccak256": "0xedd6fa8dbfccf790d9116e7445364803f236e25fc738476ecaedd421facfece5",
+      "keccak256": "0x773a7995c60afd7f22ee03d27a5dd1c01df0aefa13cd4222573ee9970a5b4845",
       "license": "LGPL-3.0-only",
       "urls": [
-        "bzz-raw://319f63d001e9e02f3892b618629e6566bb10ac04426fa3dfc633f1864113f119",
-        "dweb:/ipfs/QmRkRjfPbtYPkduc9phNZnXGEEhdWgHPLTxwH4ZHEPja7M"
+        "bzz-raw://d51ddda49ebccf5f14823c5b4135b7e48593cbcd2511cdacc6a115fea88861b4",
+        "dweb:/ipfs/QmWvP4t4Bwckv5Dr6QXp1MHxVkxRrYeowS4r3hhdcv7rZg"
       ]
     }
   },

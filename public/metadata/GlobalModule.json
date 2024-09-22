@@ -11,13 +11,12 @@
         "type": "error"
       },
       {
-        "inputs": [
-          {
-            "internalType": "contract ISafe",
-            "name": "safe",
-            "type": "address"
-          }
-        ],
+        "inputs": [],
+        "name": "InvalidNonce",
+        "type": "error"
+      },
+      {
+        "inputs": [],
         "name": "domainSeparator",
         "outputs": [
           {
@@ -26,7 +25,7 @@
             "type": "bytes32"
           }
         ],
-        "stateMutability": "pure",
+        "stateMutability": "view",
         "type": "function"
       },
       {
@@ -70,7 +69,7 @@
             "type": "bytes"
           }
         ],
-        "stateMutability": "pure",
+        "stateMutability": "view",
         "type": "function"
       },
       {
@@ -158,7 +157,20 @@
             "type": "bytes32"
           }
         ],
-        "stateMutability": "pure",
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "currentNonce",
+            "type": "uint256"
+          }
+        ],
+        "name": "increaseNonce",
+        "outputs": [],
+        "stateMutability": "nonpayable",
         "type": "function"
       },
       {
@@ -184,11 +196,8 @@
     "devdoc": {
       "kind": "dev",
       "methods": {
-        "domainSeparator(address)": {
+        "domainSeparator()": {
           "details": "Returns the domain separator for the safe contract, as defined in the EIP-712 standard.",
-          "params": {
-            "safe": "The safe the transaction will be executed on"
-          },
           "returns": {
             "_0": "bytes32 The domain separator hash."
           }
@@ -232,6 +241,12 @@
           "returns": {
             "_0": "Transaction hash."
           }
+        },
+        "increaseNonce(uint256)": {
+          "details": "allows skipping a nonce if for some reason it fails",
+          "params": {
+            "currentNonce": "The nonce to skip, it needs to be the current nonce"
+          }
         }
       },
       "version": 1
@@ -247,6 +262,9 @@
         },
         "getTransactionHash(address,address,uint256,bytes,uint8,uint256)": {
           "notice": "Returns transaction hash to be signed by owners."
+        },
+        "increaseNonce(uint256)": {
+          "notice": "Increment the nonce manually"
         }
       },
       "version": 1
@@ -269,19 +287,19 @@
   },
   "sources": {
     "contracts/citrus-safe-modules/src/GlobalModule.sol": {
-      "keccak256": "0xef1e7e48848f51bb9241745fc40416eb88bf61681ad566a5d379923c2fa2ab47",
+      "keccak256": "0x83bf0815c57a3ed5416e731edf60b5b2c13523ef397725bb6732e2419750ea85",
       "license": "LGPL-3.0-only",
       "urls": [
-        "bzz-raw://47fe499d8cda30879b6e5c2a2061fef8c9a720d2bd0b47b913ae5086b9922d35",
-        "dweb:/ipfs/QmfGkZaNCcp7Qdr4fT3XXsd9Cwj1ig53t3bAc1h1NL6yK6"
+        "bzz-raw://a00fcdd33aa035c7a58d10ca425d0616fb54e5e4e7cd31046e6ee650c7a5b5df",
+        "dweb:/ipfs/QmZaNbwndNvXLMYxdQBXVrJaXdANtbDCkP4GX72EUtBWt3"
       ]
     },
     "contracts/citrus-safe-modules/src/interfaces/ISafe.sol": {
-      "keccak256": "0xedd6fa8dbfccf790d9116e7445364803f236e25fc738476ecaedd421facfece5",
+      "keccak256": "0x773a7995c60afd7f22ee03d27a5dd1c01df0aefa13cd4222573ee9970a5b4845",
       "license": "LGPL-3.0-only",
       "urls": [
-        "bzz-raw://319f63d001e9e02f3892b618629e6566bb10ac04426fa3dfc633f1864113f119",
-        "dweb:/ipfs/QmRkRjfPbtYPkduc9phNZnXGEEhdWgHPLTxwH4ZHEPja7M"
+        "bzz-raw://d51ddda49ebccf5f14823c5b4135b7e48593cbcd2511cdacc6a115fea88861b4",
+        "dweb:/ipfs/QmWvP4t4Bwckv5Dr6QXp1MHxVkxRrYeowS4r3hhdcv7rZg"
       ]
     }
   },
