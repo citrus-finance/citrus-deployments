@@ -6,10 +6,8 @@ import {
   TaskArguments,
 } from "hardhat/types";
 import {
-  Abi,
   AbiConstructorNotFoundError,
   AbiConstructorParamsNotFoundError,
-  Address,
   concat,
   ContractFunctionName,
   encodeAbiParameters,
@@ -30,9 +28,6 @@ import {
   DeterministicContractDeployment,
   DynamicContractDeployment,
 } from "../types/Call";
-
-import SafeProxyFactoryABI from "../abis/SafeProxyFactory.json";
-import SafeABI from "../abis/Safe.json";
 
 const create2Contract = "0x914d7fec6aac8cd542e72bca78b30650d45643d7";
 
@@ -92,30 +87,31 @@ export default async function planTask(
   });
 
   // TODO: update me with correct owners
-  const initialOwners = ["0xEB52920BB44E2802Ebb7d91417991D7EC418EaAA"];
+  const initialOwners: Hex[] = ["0xEB52920BB44E2802Ebb7d91417991D7EC418EaAA"];
   const safe = "0x43b6b5f31eca83d64919883f8211c3b8500ff410";
+
+  const { abi: SafeABI } = await hre.artifacts.readArtifact("ISafe");
 
   const safeSetupCalldata = encodeFunctionData({
     abi: SafeABI,
     functionName: "setup",
     args: [
       initialOwners,
-      1,
+      1n,
       moduleSetupAddress,
       moduleSetupCalldata,
       fallbackHandlerAddress,
       zeroAddress,
-      0,
+      0n,
       zeroAddress,
     ],
   });
 
   await planCall(hre, {
     contractName: "ISafeProxyFactory",
-    abi: SafeProxyFactoryABI,
     address: safeProxyFactoryAddress,
     functionName: "createProxyWithNonce",
-    args: [safeSingletonAddress, safeSetupCalldata, 0],
+    args: [safeSingletonAddress, safeSetupCalldata, 0n],
   });
 
   // 0.0005 %
@@ -315,6 +311,7 @@ async function writeContractFile(
     JSON.stringify(
       JSON.parse(
         // @ts-ignore
+        // @ts-ignore
         buildInfo?.output.contracts[artifact.sourceName][artifact.contractName]
           .metadata,
       ),
@@ -445,27 +442,34 @@ async function planDynamicDeployment<C extends keyof ArtifactsMap>(
 }
 
 async function planCall<
-  const abi extends Abi | readonly unknown[],
-  functionName extends ContractFunctionName<abi> | undefined = undefined,
+  ArgT extends keyof ArtifactsMap,
+  functionName extends
+    | ContractFunctionName<ArtifactsMap[ArgT]["abi"]>
+    | undefined = undefined,
 >(
   hre: HardhatRuntimeEnvironment,
   {
     contractName,
     address,
-    abi,
     functionName,
     args,
-  }: EncodeFunctionDataParameters<abi, functionName> & {
-    contractName: string;
-    address: Address;
+  }: {
+    contractName: ArgT;
+    address: Hex;
+    functionName: functionName;
+    args: EncodeFunctionDataParameters<
+      ArtifactsMap[ArgT]["abi"],
+      functionName
+    >["args"];
   },
 ) {
   const artifact = await hre.artifacts.readArtifact(contractName);
 
   const calldata = encodeFunctionData({
     abi: artifact.abi,
+    // @ts-expect-error
     functionName,
-    // @ts-ignore
+    // @ts-expect-error
     args,
   });
 
