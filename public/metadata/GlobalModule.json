@@ -6,12 +6,34 @@
   "output": {
     "abi": [
       {
-        "inputs": [],
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "safe",
+            "type": "address"
+          }
+        ],
         "name": "ExecutionFailed",
         "type": "error"
       },
       {
-        "inputs": [],
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "safe",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "currentNonce",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "invalidNonce",
+            "type": "uint256"
+          }
+        ],
         "name": "InvalidNonce",
         "type": "error"
       },
@@ -109,11 +131,11 @@
         "outputs": [
           {
             "internalType": "bool",
-            "name": "success",
+            "name": "",
             "type": "bool"
           }
         ],
-        "stateMutability": "payable",
+        "stateMutability": "nonpayable",
         "type": "function"
       },
       {
@@ -163,21 +185,8 @@
       {
         "inputs": [
           {
-            "internalType": "uint256",
-            "name": "currentNonce",
-            "type": "uint256"
-          }
-        ],
-        "name": "increaseNonce",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-      },
-      {
-        "inputs": [
-          {
             "internalType": "contract ISafe",
-            "name": "",
+            "name": "safe",
             "type": "address"
           }
         ],
@@ -185,11 +194,24 @@
         "outputs": [
           {
             "internalType": "uint256",
-            "name": "",
+            "name": "nonce",
             "type": "uint256"
           }
         ],
         "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "nonceToSkip",
+            "type": "uint256"
+          }
+        ],
+        "name": "skipNonce",
+        "outputs": [],
+        "stateMutability": "nonpayable",
         "type": "function"
       }
     ],
@@ -226,7 +248,7 @@
             "value": "Ether value of Safe transaction."
           },
           "returns": {
-            "success": "Boolean indicating transaction's success."
+            "_0": "success Boolean indicating transaction's success."
           }
         },
         "getTransactionHash(address,address,uint256,bytes,uint8,uint256)": {
@@ -242,10 +264,10 @@
             "_0": "Transaction hash."
           }
         },
-        "increaseNonce(uint256)": {
-          "details": "allows skipping a nonce if for some reason it fails",
+        "skipNonce(uint256)": {
+          "details": "allows skipping a nonce if for some reason the associated transaction fails",
           "params": {
-            "currentNonce": "The nonce to skip, it needs to be the current nonce"
+            "nonceToSkip": "The nonce to skip, it needs to be the current nonce                     to prevent front-running attack"
           }
         }
       },
@@ -263,8 +285,8 @@
         "getTransactionHash(address,address,uint256,bytes,uint8,uint256)": {
           "notice": "Returns transaction hash to be signed by owners."
         },
-        "increaseNonce(uint256)": {
-          "notice": "Increment the nonce manually"
+        "skipNonce(uint256)": {
+          "notice": "Skip the nonce"
         }
       },
       "version": 1
@@ -287,11 +309,11 @@
   },
   "sources": {
     "contracts/citrus-safe-modules/src/GlobalModule.sol": {
-      "keccak256": "0x83bf0815c57a3ed5416e731edf60b5b2c13523ef397725bb6732e2419750ea85",
+      "keccak256": "0x08ac5e7b945d638cd8452a7db77add05e3fcb35d5952583caf689784c6013c65",
       "license": "LGPL-3.0-only",
       "urls": [
-        "bzz-raw://a00fcdd33aa035c7a58d10ca425d0616fb54e5e4e7cd31046e6ee650c7a5b5df",
-        "dweb:/ipfs/QmZaNbwndNvXLMYxdQBXVrJaXdANtbDCkP4GX72EUtBWt3"
+        "bzz-raw://e152c0c87663bf296a9f28d62bee206787367e1756a5202dc6d8573d4e8c4fae",
+        "dweb:/ipfs/QmPpcXsVocZDhsjZU4HE4eZGhpJVADfH7gBT2LPj46qswp"
       ]
     },
     "contracts/citrus-safe-modules/src/interfaces/ISafe.sol": {

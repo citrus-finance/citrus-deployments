@@ -16,7 +16,6 @@ import {
   Transport,
   Chain,
   Account,
-  getAddress,
   getCreateAddress,
 } from "viem";
 import pRetry from "p-retry";
@@ -115,18 +114,30 @@ class CitrusDeployer {
           constructorArgs,
         });
       } else if (call.type === "call") {
-        // TODO: maybe find a better way to check if something was already executed
-        const shouldExecute = await (async () => {
-          try {
-            await this.publicClient.call({
-              to: call.to,
-              data: call.calldata,
+        const conditionValue = await (async () => {
+          if (call.condition.type === "code") {
+            const code = await this.publicClient.getCode({
+              address: call.condition.address,
             });
-            return true;
-          } catch {
-            return false;
+            return code ?? "0x";
+          } else if (call.condition.type === "view") {
+            const result = await this.publicClient.call({
+              to: call.condition.address,
+              data: call.condition.calldata,
+            });
+
+            return result.data;
+          } else {
+            // @ts-expect-error
+            throw new Error(`${call.condition.type} does not exists`);
           }
         })();
+
+        const shouldExecute =
+          (call.condition.check === "equal" &&
+            conditionValue === call.condition.value) ||
+          (call.condition.check === "not-equal" &&
+            conditionValue !== call.condition.value);
 
         if (shouldExecute) {
           // TODO: handle gas

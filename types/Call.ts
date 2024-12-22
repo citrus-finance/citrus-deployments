@@ -29,6 +29,26 @@ interface ContractCall {
   functionName: string;
   to: Hex;
   calldata: Hex;
+  condition: Condition;
+}
+
+type Condition = CodeCondition | ViewCondition;
+
+type ConditionCheck = "equal" | "not-equal";
+
+interface CodeCondition {
+  type: "code";
+  address: Hex;
+  check: ConditionCheck;
+  value: Hex;
+}
+
+interface ViewCondition {
+  type: "view";
+  address: Hex;
+  calldata: Hex;
+  check: ConditionCheck;
+  value: Hex;
 }
 
 export type Call =

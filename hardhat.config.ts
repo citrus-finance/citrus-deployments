@@ -17,6 +17,7 @@ import applyTask from "./tasks/apply";
 
 const sourcePaths = [
   "contracts/citrus-safe-modules/src/**/*.sol",
+  "contracts/citrus-safe-modules/test/interfaces/*.sol",
   "contracts/joe-v2/src/**/*.sol",
   "contracts/joe-core/contracts/traderjoe/**/*.sol",
 ];

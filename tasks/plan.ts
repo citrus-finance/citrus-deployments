@@ -22,6 +22,11 @@ import {
   toBytes,
   toHex,
   zeroAddress,
+  recoverAddress,
+  getAddress,
+  keccak256,
+  encodePacked,
+  padHex,
 } from "viem";
 import {
   Call,
@@ -88,7 +93,7 @@ export default async function planTask(
 
   // TODO: update me with correct owners
   const initialOwners: Hex[] = ["0xEB52920BB44E2802Ebb7d91417991D7EC418EaAA"];
-  const safe = "0x43b6b5f31eca83d64919883f8211c3b8500ff410";
+  const safeAddress = "0xde279d8188c3768a0c80a928d3c1f9fa7d75a3ad";
 
   const { abi: SafeABI } = await hre.artifacts.readArtifact("ISafe");
 
@@ -112,7 +117,15 @@ export default async function planTask(
     address: safeProxyFactoryAddress,
     functionName: "createProxyWithNonce",
     args: [safeSingletonAddress, safeSetupCalldata, 0n],
+    condition: {
+      type: "code",
+      address: safeAddress,
+      check: "equal",
+      value: "0x",
+    },
   });
+
+  const safe = new Safe(safeAddress, globalModuleAddress, initialOwners, 1);
 
   // 0.0005 %
   const flashLoanFee = 5000000000000n;
@@ -153,8 +166,8 @@ export default async function planTask(
     hre,
     "LBDeployer",
     [
-      safe,
-      safe,
+      safeAddress,
+      safeAddress,
       flashLoanFee,
       binSteps,
       baseFactors,
@@ -169,7 +182,7 @@ export default async function planTask(
       children: [
         {
           name: "LBFactory",
-          args: [safe, "LBDeployer", flashLoanFee],
+          args: [safeAddress, "LBDeployer", flashLoanFee],
         },
         {
           name: "LBPair",
@@ -192,7 +205,7 @@ export default async function planTask(
   const joeV1FactoryAddress = await planDeterministicDeployment(
     hre,
     "JoeFactory",
-    [safe, safe],
+    [safeAddress, safeAddress],
   );
 
   await planDynamicDeployment(hre, "LBRouter", [
@@ -213,6 +226,19 @@ export default async function planTask(
     "0x0000000000000000000000000000000000000000",
     "LBRouter",
   ]);
+
+  await safe.planCall(
+    hre,
+    {
+      contractName: "LBFactory",
+      address: lbV2FactoryAddress,
+      functionName: "acceptOwnership",
+      args: [],
+    },
+    [
+      "0x048651bd6a662e64d7732b435dd169770021322ac6fd41ad4c24bb883936a26e789bfd26f134e9ae9bc31e59c487e463eb85d5120154e96dd67086b09a22e9271b",
+    ],
+  );
 
   await writeCallsFile();
 }
@@ -310,10 +336,9 @@ async function writeContractFile(
     `public/metadata/${artifact.contractName}.json`,
     JSON.stringify(
       JSON.parse(
+        // prettier-ignore
         // @ts-ignore
-        // @ts-ignore
-        buildInfo?.output.contracts[artifact.sourceName][artifact.contractName]
-          .metadata,
+        buildInfo?.output.contracts[artifact.sourceName][artifact.contractName].metadata,
       ),
       null,
       2,
@@ -441,10 +466,41 @@ async function planDynamicDeployment<C extends keyof ArtifactsMap>(
   await writeContractFile(hre, contractName);
 }
 
+type ConditionCheck = "equal" | "not-equal";
+
+interface CodeCondition {
+  type: "code";
+  address: Hex;
+  check: ConditionCheck;
+  value: Hex;
+}
+
+interface ViewCondition<
+  ArgT extends keyof ArtifactsMap,
+  FunctionName extends
+    | ContractFunctionName<ArtifactsMap[ArgT]["abi"]>
+    | undefined = undefined,
+> {
+  type: "view";
+  address: Hex;
+  contractName: ArgT;
+  functionName: FunctionName;
+  args: EncodeFunctionDataParameters<
+    ArtifactsMap[ArgT]["abi"],
+    FunctionName
+  >["args"];
+  check: ConditionCheck;
+  value: any;
+}
+
 async function planCall<
   ArgT extends keyof ArtifactsMap,
-  functionName extends
+  CArgT extends keyof ArtifactsMap,
+  FunctionName extends
     | ContractFunctionName<ArtifactsMap[ArgT]["abi"]>
+    | undefined = undefined,
+  CFunctionName extends
+    | ContractFunctionName<ArtifactsMap[CArgT]["abi"]>
     | undefined = undefined,
 >(
   hre: HardhatRuntimeEnvironment,
@@ -453,14 +509,16 @@ async function planCall<
     address,
     functionName,
     args,
+    condition,
   }: {
     contractName: ArgT;
     address: Hex;
-    functionName: functionName;
+    functionName: FunctionName;
     args: EncodeFunctionDataParameters<
       ArtifactsMap[ArgT]["abi"],
-      functionName
+      FunctionName
     >["args"];
+    condition: CodeCondition | ViewCondition<CArgT, CFunctionName>;
   },
 ) {
   const artifact = await hre.artifacts.readArtifact(contractName);
@@ -479,6 +537,31 @@ async function planCall<
     functionName: functionName!,
     to: address,
     calldata,
+    condition: await (async () => {
+      if (condition.type === "code") {
+        return condition;
+      } else {
+        const viewArtifact = await hre.artifacts.readArtifact(
+          condition.contractName,
+        );
+
+        const viewCalldata = encodeFunctionData({
+          abi: viewArtifact.abi,
+          // @ts-expect-error
+          functionName: condition.functionName,
+          // @ts-expect-error
+          args: condition.args,
+        });
+
+        return {
+          type: "view",
+          address: condition.address,
+          calldata: viewCalldata,
+          check: condition.check,
+          value: condition.value,
+        };
+      }
+    })(),
   };
 }
 
@@ -513,4 +596,159 @@ function transformBytecode(
   }
 
   return bytecodeParts;
+}
+
+// TODO: add methods to change safe configuration
+class Safe {
+  public owners: Hex[];
+
+  public nonce = 0;
+
+  constructor(
+    public safeAddress: Hex,
+    public globalModuleAddress: Hex,
+    initialOwners: Hex[],
+    public requiredSignatures: number,
+  ) {
+    this.owners = initialOwners.map((x) => getAddress(x));
+  }
+
+  // NOTE: to sign with foundry: cast wallet sign --ledger --no-hash <HASH>
+  async planCall<
+    ArgT extends keyof ArtifactsMap,
+    functionName extends
+      | ContractFunctionName<ArtifactsMap[ArgT]["abi"]>
+      | undefined = undefined,
+  >(
+    hre: HardhatRuntimeEnvironment,
+    {
+      contractName,
+      address,
+      functionName,
+      args,
+    }: {
+      contractName: ArgT;
+      address: Hex;
+      functionName: functionName;
+      args: EncodeFunctionDataParameters<
+        ArtifactsMap[ArgT]["abi"],
+        functionName
+      >["args"];
+    },
+    signatures: Hex[],
+  ) {
+    const artifact = await hre.artifacts.readArtifact(contractName);
+
+    const calldata = encodeFunctionData({
+      abi: artifact.abi,
+      // @ts-expect-error
+      functionName,
+      // @ts-expect-error
+      args,
+    });
+
+    const transactionHash = this.getTransactionHash(address, calldata);
+
+    await Promise.all(
+      signatures.map(async (sig) => {
+        const signer = await recoverAddress({
+          hash: transactionHash,
+          signature: sig,
+        });
+
+        if (!this.owners.includes(signer)) {
+          throw new Error(
+            `Signer of ${sig}: ${signer} is not an owner, please sign: ${transactionHash}`,
+          );
+        }
+      }),
+    );
+
+    if (signatures.length < this.requiredSignatures) {
+      throw new Error(
+        `Missing ${this.requiredSignatures - signatures.length} signatures for ${functionName}(${args}), please sign: ${transactionHash}`,
+      );
+    }
+
+    const globalModuleArtifact =
+      await hre.artifacts.readArtifact("GlobalModule");
+
+    const globalModuleCalldata = encodeFunctionData({
+      abi: globalModuleArtifact.abi,
+      functionName: "execTransaction",
+      args: [this.safeAddress, address, 0n, calldata, 0, concat(signatures)],
+    });
+
+    const globalModuleNonceCallData = encodeFunctionData({
+      abi: globalModuleArtifact.abi,
+      functionName: "nonces",
+      args: [this.safeAddress],
+    });
+
+    calls[callIndex++] = {
+      type: "call",
+      contractName,
+      functionName: functionName!,
+      to: this.globalModuleAddress,
+      calldata: globalModuleCalldata,
+      condition: {
+        type: "view",
+        address: this.globalModuleAddress,
+        calldata: globalModuleNonceCallData,
+        check: "equal",
+        value: padHex(toHex(this.nonce), { size: 32 }),
+      },
+    };
+
+    this.nonce++;
+  }
+
+  private getTransactionHash(address: Hex, calldata: Hex): Hex {
+    const SAFE_TX_TYPEHASH =
+      "0x0665fbc39e688daa835492cf4e62db9cc70e492a81eaeca0edc5df667def7cc6";
+
+    const safeTxHash = keccak256(
+      encodeAbiParameters(
+        [
+          { type: "bytes32" },
+          { type: "address" },
+          { type: "address" },
+          { type: "uint256" },
+          { type: "bytes32" },
+          { type: "uint8" },
+          { type: "uint256" },
+        ],
+        [
+          SAFE_TX_TYPEHASH,
+          this.safeAddress,
+          address,
+          0n,
+          keccak256(calldata),
+          0,
+          BigInt(this.nonce),
+        ],
+      ),
+    );
+
+    const domainSeparator = keccak256(
+      encodeAbiParameters(
+        [
+          { type: "bytes32" }, // domainTypeHash
+          { type: "address" }, // verifyingContract
+        ],
+        [
+          // DOMAIN_SEPARATOR_TYPEHASH
+          "0x035aff83d86937d35b32e04f0ddc6ff469290eef2f1b692d8a815c89404d4749",
+          this.globalModuleAddress,
+        ],
+      ),
+    );
+
+    const encodedTransactionData = encodePacked(
+      ["bytes1", "bytes1", "bytes32", "bytes32"],
+      ["0x19", "0x01", domainSeparator, safeTxHash],
+    );
+
+    return keccak256(encodedTransactionData);
+  }
 }
