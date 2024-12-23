@@ -22,7 +22,6 @@ import pRetry from "p-retry";
 import { mapValues, omit } from "lodash";
 
 const create2Contract = "0x914d7fec6aac8cd542e72bca78b30650d45643d7";
-const wNative = "0xe91d153e0b41518a2ce8dd3d7944fa863463a97d";
 
 const contractAddressMap: Record<string, Hex> = {};
 
@@ -39,6 +38,29 @@ export default async function applyTask(
 
   if (publicClient.chain.id === 31337) {
     throw new Error("Missing RPC_URL in .env");
+  }
+
+  const response = await fetch(
+    "https://assets.citrus.finance/networks/app-kit-networks.json",
+  );
+
+  if (response.status !== 200) {
+    throw new Error("Failed to fetch networks data");
+  }
+
+  const networks = (await response.json()) as {
+    chainId: number;
+    wrapped: Hex;
+  }[];
+
+  const wrapped = networks.find(
+    (x) => x.chainId === publicClient.chain.id,
+  )?.wrapped;
+
+  if (!wrapped) {
+    throw new Error(
+      `Network is not configured properly, please see https://github.com/citrus-finance/citrus-assets`,
+    );
   }
 
   const deployer = new CitrusDeployer({
@@ -60,6 +82,7 @@ export default async function applyTask(
       }
     },
     etherscanKey: process.env.ETHERSCAN_API_KEY,
+    wrapped,
   });
 
   await deployer.deploy();
@@ -78,21 +101,26 @@ class CitrusDeployer {
 
   private etherscanKey?: string;
 
+  private wrapped: Hex;
+
   constructor({
     publicClient,
     walletClient,
     fetchFile,
     etherscanKey,
+    wrapped,
   }: {
     publicClient: PublicClient;
     walletClient: WalletClient;
     fetchFile: FileFetcher;
     etherscanKey?: string;
+    wrapped: Hex;
   }) {
     this.publicClient = publicClient;
     this.walletClient = walletClient;
     this.fetchFile = fetchFile;
     this.etherscanKey = etherscanKey;
+    this.wrapped = wrapped;
   }
 
   public async deploy() {
@@ -106,7 +134,10 @@ class CitrusDeployer {
       if (call.type === "deterministic-deployment") {
         await this.deployContract(call);
       } else if (call.type === "dynamic-deployment") {
-        const constructorArgs = getConstructorArgs(call.constructorArgs);
+        const constructorArgs = getConstructorArgs(
+          call.constructorArgs,
+          this.wrapped,
+        );
 
         await this.deployContract({
           name: call.name,
@@ -239,7 +270,7 @@ class CitrusDeployer {
 
         await this.verifyContract(
           call.children[i].name,
-          getConstructorArgs(call.children[i].constructorArgs),
+          getConstructorArgs(call.children[i].constructorArgs, this.wrapped),
           childAddress,
         );
       }
@@ -322,6 +353,7 @@ class CitrusDeployer {
 
 function getConstructorArgs(
   constructorArgs: DynamicContractDeployment["constructorArgs"],
+  wrapped: Hex,
 ): Hex {
   return concat(
     constructorArgs.map((p) => {
@@ -330,7 +362,7 @@ function getConstructorArgs(
       }
 
       if (p === "wnative") {
-        return wNative;
+        return wrapped;
       }
 
       if (contractAddressMap[p]) {
