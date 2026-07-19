@@ -1,0 +1,7 @@
+allowBuilds: { esbuild: true }
+blockExoticSubdeps: true
+minimumReleaseAge: 10080
+minimumReleaseAgeExclude:
+  - execa
+trustPolicy: no-downgrade
+trustPolicyExclude:
